@@ -22,10 +22,10 @@
                 android:id="@+id/IP_ADDRESS" />
 
             <EditText
-                android:hint="Login"
+                android:hint="ID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/LOGIN" />
+                android:id="@+id/ID" />
 
             <EditText
                 android:id="@+id/username_input"
