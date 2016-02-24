@@ -168,6 +168,7 @@ jQuery(function($){
             // Templates
             App.$gameArea = $('#gameArea');
             App.$templateIntroScreen = $('#intro-screen-template').html();
+            App.$templateInsGame = $('#instantiate-game-template').html();
             App.$templateNewGame = $('#create-game-template').html();
             App.$templateJoinGame = $('#join-game-template').html();
             App.$hostGame = $('#host-game-template').html();
@@ -178,6 +179,7 @@ jQuery(function($){
          */
         bindEvents: function () {
             // Host
+            App.$doc.on('click', '#btnInstantiateGame', App.Host.onInstantiateClick);
             App.$doc.on('click', '#btnCreateGame', App.Host.onCreateClick);
 
             // Player
@@ -219,9 +221,21 @@ jQuery(function($){
             isNewGame : false,
 
             /**
+             * Keep track of the number of players that can joined the game.
+             */
+            numPlayersMax: 0,
+
+            /**
              * Keep track of the number of players that have joined the game.
              */
             numPlayersInRoom: 0,
+
+            /**
+             * Keep track of the number of players that can joined the game.
+             */
+            numTurnsMax: 0,
+
+            myName: '',
 
             /**
              * A reference to the correct answer for the current round.
@@ -229,11 +243,28 @@ jQuery(function($){
             currentCorrectAnswer: '',
 
             /**
-             * Handler for the "Start" button on the Title Screen.
+             * Handler for the "Create" button on the Title Screen.
+             */
+            onInstantiateClick: function () {
+                // console.log('Clicked "Create A Game"');
+
+                // collect data to send to the server
+                var data = {
+                    numPlayersMax : +($('#inputNumberPlayers').val()),
+                    numTurnsMax : $('#inputNumberTurns').val(),
+                    hostName : $('#inputHostName').val()
+                };
+
+                App.Host.myName = data.hostName;
+                IO.socket.emit('hostCreateNewGame');
+            },
+
+            /**
+             * Handler for the "Create" button on the Create Screen.
              */
             onCreateClick: function () {
                 // console.log('Clicked "Create A Game"');
-                IO.socket.emit('hostCreateNewGame');
+                App.$gameArea.html(App.$templateInsGame);
             },
 
             /**
@@ -286,7 +317,7 @@ jQuery(function($){
                 App.Host.numPlayersInRoom += 1;
 
                 // If two players have joined, start the game!
-                if (App.Host.numPlayersInRoom === 2) {
+                if (App.Host.numPlayersInRoom === App.Host.numPlayersMax) {
                     // console.log('Room is full. Almost ready!');
 
                     // Let the server know that two players are present.

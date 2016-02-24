@@ -1,0 +1,26 @@
+{
+  "name": "DinoParc",
+  "description": "DinoParc Multiplayer Game",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "socket.io": "0.9"
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gchaville/SocketIO-Android_DinoParc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gchaville/SocketIO-Android_DinoParc"
+  },
+  "homepage": "https://github.com/gchaville/SocketIO-Android_DinoParc"
+}

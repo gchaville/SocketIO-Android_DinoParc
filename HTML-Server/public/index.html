@@ -9,20 +9,12 @@
     <!-- Let's borrow a cool looking Font from Google -->
     <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 
-    <!-- JQuery -->
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
-        serve the proper Socket.IO javascript files used by the browser -->
-    <script src="/socket.io/socket.io.js"></script>
-
-    <!-- app.js is where all the client-side Anagrammatix game logic -->
-    <script src="app.js"></script>
+    <!-- jQuery! -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <link href="css/styles.css" rel="stylesheet">
 
-    <title>DinoParc App-Server</title>
+    <title> DinoParc Server </title>
 </head>
 <body>
     <div id="gameArea">
@@ -38,7 +30,7 @@
             </div>
 
             <div class="buttons">
-                <button id="btnHostGame" class="btn left">CREATE</button>
+                <button id="btnCreateGame" class="btn left">CREATE</button>
                 <button id="btnJoinGame" class="btn right">JOIN</button>
                 <div style="clear:both"></div>
             </div>
@@ -47,9 +39,8 @@
     </script>
 
     <!-- This screen appears when a user clicks "CREATE" on the Title Screen -->
-    <script id="create-game-template" type="text/template">
+    <script id="instantiate-game-template" type="text/template">
         <div class="createGameWrapper">
-
             <div class="info">
                 <label for="inputNumberPlayers">Number of Players :</label>
                 <input id="inputNumberPlayers" type="text" />
@@ -65,6 +56,15 @@
                 <input id="inputHostName" type="text" />
             </div>
 
+            <div class="info buttons">
+                <button id="btnInstantiateGame" class="btn">Instantiate</button>
+            </div>
+        </div>
+    </script>
+
+    <!-- This screen appears when a user clicks "CREATE" on the Create Screen -->
+    <script id="create-game-template" type="text/template">
+        <div class="createGameWrapper">
             <div class="info">Open this site on your mobile device:</div>
             <div id="gameURL" class="infoBig">Error!</div>
 
@@ -110,5 +110,23 @@
         </div>
     </script>
 
+
+    <!-- JavaScript Libraries -->
+
+    <!-- TextFit resizes text to fill a container.
+    It's used so the titles and game words fit properly on any size screen.
+    https://github.com/STRML/textFit   -->
+    <script src="libs/textFit.min.js"></script>
+
+    <!-- FastClick is used to eliminate the 300ms delay when clicking items on a mobile device
+        https://github.com/ftlabs/fastclick -->
+    <script src="libs/fastclick.js"></script>
+
+    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
+            serve the proper Socket.IO javascript files used by the browser -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- app.js is where all the client-side Anagrammatix game logic -->
+    <script src="app.js"></script>
 </body>
 </html>
