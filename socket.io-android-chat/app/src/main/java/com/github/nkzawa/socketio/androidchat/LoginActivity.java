@@ -28,10 +28,15 @@ public class LoginActivity extends Activity {
 
     private Socket mSocket;
 
+    private EditText IPAddressView;
+
+    private String IPAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        IPAddressView = (EditText) findViewById(R.id.IP_ADDRESS);
 
         ChatApplication app = (ChatApplication) getApplication();
         mSocket = app.getSocket();

@@ -8,10 +8,13 @@ import java.net.URISyntaxException;
 
 public class ChatApplication extends Application {
 
+    private String IpAddress;
     private Socket mSocket;
-    {
+
+    public ChatApplication(String IP) {
+        IpAddress = IP;
         try {
-            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
+            mSocket = IO.socket(IpAddress);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
