@@ -42,13 +42,17 @@
     <script id="instantiate-game-template" type="text/template">
         <div class="createGameWrapper">
             <div class="info">
-                <label for="inputNumberPlayers">Number of Players :</label>
-                <input id="inputNumberPlayers" type="text" />
+                <label id="inputNumberPlayers">Number of Players :</label>
+                <input type="radio" id="input2Players" name="numberPlayers" value=2 checked> 2 Players
+                <input type="radio" id="input3Players" name="numberPlayers" value=3> 3 Players
+                <input type="radio" id="input4Players" name="numberPlayers" value=4> 4 Players
             </div>
 
             <div class="info">
-                <label for="inputNumberTurns">Number of Turns :</label>
-                <input id="inputNumberTurns" type="text" />
+                <label id="inputNumberTurns">Number of Turns :</label>
+                    <input type="radio" id="input10Turns" name="numberTurns" value=10 checked> 10 Turns
+                    <input type="radio" id="input15Turns" name="numberTurns" value=15> 15 Turns
+                    <input type="radio" id="input20Turns" name="numberTurns" value=20> 20 Turns
             </div>
 
             <div class="info">
@@ -110,7 +114,77 @@
         </div>
     </script>
 
+    <script id="play-game-template" type="text/template">
+        <div id="PlayerMenu">
 
+        </div>
+        <table id="board">
+            <tr>
+                <th></th> <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th>
+                <th>8</th> <th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th>
+            </tr>
+            <tr>
+                <th>1</th> <td class="ntile"></td> <td class="ntile"></td> <td class="ntile"></td> <td class="tile"></td>
+                <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                <td class="tile"></td> <td class="tile"></td>
+            </tr>
+            <tr>
+                <th>2</th> <td class="ntile"></td> <td class="ntile"></td> <td class="ntile"></td> <td class="tile"></td>
+                <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>3</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>4</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>5</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>6</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>7</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>8</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>9</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+           <tr>
+               <th>10</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+               <td class="tile"></td> <td class="tile"></td>
+            </tr>
+        </table>
+</script>
     <!-- JavaScript Libraries -->
 
     <!-- TextFit resizes text to fill a container.

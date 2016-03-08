@@ -250,13 +250,16 @@ jQuery(function($){
 
                 // collect data to send to the server
                 var data = {
-                    numPlayersMax : +($('#inputNumberPlayers').val()),
-                    numTurnsMax : $('#inputNumberTurns').val(),
+                    numPlayersMax : +($('input[name="numberPlayers"]:checked').val()),
+                    numTurnsMax : $('input[name="numberTurns"]:checked').val(),
                     hostName : $('#inputHostName').val()
                 };
 
+                App.Host.numPlayersMax = data.numPlayersMax;
+                App.Host.numTurnsMax = data.numTurnsMax;
+                console.log(App.Host.numPlayersMax + ' ' + App.Host.numTurnsMax);
                 App.Host.myName = data.hostName;
-                IO.socket.emit('hostCreateNewGame');
+                IO.socket.emit('hostCreateNewGame', data);
             },
 
             /**
