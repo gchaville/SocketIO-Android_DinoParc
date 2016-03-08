@@ -344,17 +344,31 @@ jQuery(function($){
                 });
 
                 // Display the players' names on screen
+                console.log("Player1 name : " + App.Host.players[0].playerName);
                 $('#player1Score')
                     .find('.playerName')
                     .html(App.Host.players[0].playerName);
 
+                console.log("Player2 name : " + App.Host.players[1].playerName);
                 $('#player2Score')
                     .find('.playerName')
                     .html(App.Host.players[1].playerName);
 
+                console.log("Player3 name : " + App.Host.players[2].playerName);
+                $('#player3Score')
+                    .find('.playerName')
+                    .html(App.Host.players[2].playerName);
+
+                console.log("Player4 name : " + App.Host.players[3].playerName);
+                $('#player4Score')
+                    .find('.playerName')
+                    .html(App.Host.players[3].playerName);
+
                 // Set the Score section on screen to 0 for each player.
                 $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
                 $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
+                $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
+                $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
             },
 
             /**
