@@ -299,6 +299,15 @@ html, body {
     text-align: right;
 }
 
+#player3Score {
+    float: left;
+}
+
+#player4Score {
+    float: right;
+    text-align: right;
+}
+
 
 /* ******************************
           TITLE SCREEN
@@ -325,10 +334,26 @@ html, body {
      (intro-screen-template)
    ****************************** */
 
+#boards {
+    position: fixed;
+    margin:auto;
+}
 
-#board { margin: 0 auto 0 auto; }
+#board1, #board3 {
+    padding-left: 10%;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    float : left }
 
-#board .tile {
+#board2, #board4 {
+    padding-right: 10%;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    float : right }
+
+#board1 .tile, #board2 .tile, #board3 .tile, #board4 .tile {
     width:  40px;
     height: 40px;
     font-size: 35px;
@@ -343,7 +368,7 @@ html, body {
     -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
-#board .ntile {
+#board1 .ntile, #board2 .ntile , #board3 .ntile, #board4 .ntile {
     width:  40px;
     height: 40px;
     font-size: 35px;
