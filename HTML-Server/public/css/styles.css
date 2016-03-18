@@ -333,27 +333,14 @@ html, body {
           BOARD SCREEN
      (intro-screen-template)
    ****************************** */
-
-#boards {
-    position: fixed;
-    margin:auto;
-}
-
-#board1, #board3 {
-    padding-left: 10%;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    float : left }
-
-#board2, #board4 {
+#board {
     padding-right: 10%;
     padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     float : right }
 
-#board1 .tile, #board2 .tile, #board3 .tile, #board4 .tile {
+#board .tile {
     width:  40px;
     height: 40px;
     font-size: 35px;
@@ -368,7 +355,58 @@ html, body {
     -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
-#board1 .ntile, #board2 .ntile , #board3 .ntile, #board4 .ntile {
+#board .cage {
+     width:  40px;
+     height: 40px;
+     font-size: 35px;
+     line-height: 35px;
+     text-align: center;
+     vertical-align: bottom;
+     background:#ccc;
+     background:-moz-linear-gradient(top, #ccc, #eee);
+     background:-webkit-gradient(linear,0 0, 0 100%, from(#ccc), to(#eee));
+     background-image: url(res/cage.png);
+     background-size: 40px 40px;
+     box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+     -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+     -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+ }
+
+#board .dino {
+    width:  40px;
+    height: 40px;
+    font-size: 35px;
+    line-height: 35px;
+    text-align: center;
+    vertical-align: bottom;
+    background:#ccc;
+    background:-moz-linear-gradient(top, #ccc, #eee);
+    background:-webkit-gradient(linear,0 0, 0 100%, from(#ccc), to(#eee));
+    background-image: url(res/dino.png);
+    background-size: 40px 40px;
+    box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+    -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+    -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+}
+
+#board .booth {
+    width:  40px;
+    height: 40px;
+    font-size: 35px;
+    line-height: 35px;
+    text-align: center;
+    vertical-align: bottom;
+    background:#ccc;
+    background:-moz-linear-gradient(top, #ccc, #eee);
+    background:-webkit-gradient(linear,0 0, 0 100%, from(#ccc), to(#eee));
+    background-image: url(res/booth.png);
+    background-size: 40px 40px;
+    box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+    -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+    -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+}
+
+#board .ntile {
     width:  40px;
     height: 40px;
     font-size: 35px;

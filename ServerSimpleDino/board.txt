@@ -1,0 +1,269 @@
+<div id="boards">
+            <table id="board1">
+                <tr>
+                    <th></th> <th>14</th> <th>13</th> <th>12</th> <th>11</th> <th>10</th> <th>9</th> <th>8</th>
+                    <th>7</th> <th>6</th> <th>5</th> <th>4</th> <th>3</th> <th>2</th> <th>1</th>
+                </tr>
+                <tr>
+                    <th>10</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>9</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>8</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>7</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>6</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>5</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>4</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>3</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>2</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="ntile"></td>
+                    <td class="ntile"></td> <td class="ntile"></td>
+                </tr>
+                <tr>
+                    <th>1</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="ntile"></td>
+                    <td class="ntile"></td> <td class="ntile"></td>
+                </tr>
+            </table>
+
+            <table id="board2">
+                <tr>
+                    <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th>
+                    <th>8</th> <th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>10</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>9</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>8</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>7</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>6</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>5</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>4</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>3</th>
+                </tr>
+                <tr>
+                    <td class="ntile"></td> <td class="ntile"></td> <td class="ntile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>2</th>
+                </tr>
+                <tr>
+                    <td class="ntile"></td> <td class="ntile"></td> <td class="ntile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>1</th>
+                </tr>
+            </table>
+
+            <table id="board3">
+                <tr>
+                    <th>1</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="ntile"></td>
+                    <td class="ntile"></td> <td class="ntile"></td>
+                </tr>
+                <tr>
+                    <th>2</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="ntile"></td>
+                    <td class="ntile"></td> <td class="ntile"></td>
+                </tr>
+                <tr>
+                    <th>3</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>4</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>5</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>6</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>7</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>8</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>9</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th>10</th> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td>
+                </tr>
+                <tr>
+                    <th></th> <th>14</th> <th>13</th> <th>12</th> <th>11</th> <th>10</th> <th>9</th> <th>8</th>
+                    <th>7</th> <th>6</th> <th>5</th> <th>4</th> <th>3</th> <th>2</th> <th>1</th>
+                </tr>
+            </table>
+
+            <table id="board4">
+                <tr>
+                    <td class="ntile"></td> <td class="ntile"></td> <td class="ntile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>1</th>
+                </tr>
+                <tr>
+                    <td class="ntile"></td> <td class="ntile"></td> <td class="ntile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>2</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>3</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>4</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>5</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>6</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>7</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>8</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>9</th>
+                </tr>
+                <tr>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <td class="tile"></td> <td class="tile"></td>
+                    <td class="tile"></td> <td class="tile"></td> <th>10</th>
+                </tr>
+                <tr>
+                    <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th>
+                    <th>8</th> <th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th>
+                </tr>
+            </table>
+        </div>
