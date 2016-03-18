@@ -166,7 +166,7 @@ public class MainFragment extends Fragment {
         addParticipantsLog(numUsers);
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.menu_main, menu);
@@ -186,7 +186,7 @@ public class MainFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void addLog(String message) {
         mMessages.add(new Message.Builder(Message.TYPE_LOG)

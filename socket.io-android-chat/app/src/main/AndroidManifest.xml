@@ -23,7 +23,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.AppCompat"
-            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
+        android:windowSoftInputMode="adjustResize|stateVisible"></activity>
         <activity
             android:name=".GameBoard"
             android:label="@string/title_activity_game_board"
