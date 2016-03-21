@@ -343,32 +343,50 @@ jQuery(function($){
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
 
+                //Boards
+                var $boards = $('#boards');
+
                 // Display the players' names on screen
-                console.log("Player1 name : " + App.Host.players[0].playerName);
+                console.log("Player1 name : " + App.Host.players[0].playerName + " " + App.Host.players[0].mySocketId);
                 $('#player1Score')
                     .find('.playerName')
                     .html(App.Host.players[0].playerName);
+                $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
+                $('#player1Score').find('.cash').attr('id',App.Host.players[0].mySocketId);
+                $('.board1').attr('id',App.Host.players[0].mySocketId);
 
-                console.log("Player2 name : " + App.Host.players[1].playerName);
+                console.log("Player2 name : " + App.Host.players[1].playerName + " " +  App.Host.players[1].mySocketId );
                 $('#player2Score')
                     .find('.playerName')
                     .html(App.Host.players[1].playerName);
-
-                console.log("Player3 name : " + App.Host.players[2].playerName);
-                $('#player3Score')
-                    .find('.playerName')
-                    .html(App.Host.players[2].playerName);
-
-                console.log("Player4 name : " + App.Host.players[3].playerName);
-                $('#player4Score')
-                    .find('.playerName')
-                    .html(App.Host.players[3].playerName);
-
-                // Set the Score section on screen to 0 for each player.
-                $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
                 $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
-                $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
-                $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
+                $('#player2Score').find('.cash').attr('id',App.Host.players[1].mySocketId);
+                $('.board2').attr('id',App.Host.players[0].mySocketId);
+
+                if (App.Host.numPlayersMax == 3) {
+                    console.log("Player3 name : " + App.Host.players[2].playerName +" " + App.Host.players[2].mySocketId);
+                    $('#player3Score')
+                        .find('.playerName')
+                        .html(App.Host.players[2].playerName);
+                    $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
+                }
+                else {
+                    $('#player3Score').hide();
+                    $boards.find('.board3').hide();
+                }
+
+                if (App.Host.numPlayersMax == 4) {
+                    console.log("Player4 name : " + App.Host.players[3].playerName + " " + App.Host.players[3].mySocketId);
+                    $('#player4Score')
+                        .find('.playerName')
+                        .html(App.Host.players[3].playerName);
+                    $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
+                }
+                else {
+                    $('#player4Score').hide();
+                    $boards.find('.board4').hide();
+                }
+
             },
 
             /**
@@ -396,12 +414,14 @@ jQuery(function($){
                 if (data.round === App.currentRound){
 
                     // Get the player's score
-                    var $pScore = $('#' + data.playerId);
+                    var $pScore = $('.score').filter('#' + data.playerId);
+                    var $tile = $('#tile_10_1').filter('#' + data.playerId);
 
                     // Advance player's score if it is correct
                     if( App.Host.currentCorrectAnswer === data.answer ) {
                         // Add 5 to the player's score
                         $pScore.text( +$pScore.text() + 5 );
+                        $tile.removeClass($tile.className).addClass('cage');
 
                         // Advance the round
                         App.currentRound += 1;

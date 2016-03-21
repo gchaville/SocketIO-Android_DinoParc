@@ -320,36 +320,126 @@ jQuery(function($){
 
                 // Begin the on-screen countdown timer
                 var $secondsLeft = $('#hostWord');
-                App.countDown( $secondsLeft, 5, function(){
+                App.countDown($secondsLeft, 5, function () {
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
 
                 // Display the players' names on screen
-                console.log("Player1 name : " + App.Host.players[0].playerName);
+                console.log("Player1 name : " + App.Host.players[0].playerName + " " + App.Host.players[0].mySocketId);
                 $('#player1Score')
                     .find('.playerName')
                     .html(App.Host.players[0].playerName);
+                $('#player1Score').find('.cash').attr('id',App.Host.players[0].mySocketId);
+                $('#player1Score').find('.visitors').attr('id',App.Host.players[0].mySocketId);
 
-                console.log("Player2 name : " + App.Host.players[1].playerName);
+                console.log("Player2 name : " + App.Host.players[1].playerName + " " +  App.Host.players[1].mySocketId );
                 $('#player2Score')
                     .find('.playerName')
                     .html(App.Host.players[1].playerName);
+                $('#player2Score').find('.cash').attr('id',App.Host.players[1].mySocketId);
+                $('#player2Score').find('.visitors').attr('id',App.Host.players[1].mySocketId);
 
-                console.log("Player3 name : " + App.Host.players[2].playerName);
-                $('#player3Score')
-                    .find('.playerName')
-                    .html(App.Host.players[2].playerName);
+                if (App.Host.numPlayersMax == 3) {
+                    console.log("Player3 name : " + App.Host.players[2].playerName +" " + App.Host.players[2].mySocketId);
+                    $('#player3Score')
+                        .find('.playerName')
+                        .html(App.Host.players[2].playerName);
+                    $('#player3Score').find('.cash').attr('id',App.Host.players[2].mySocketId);
+                    $('#player3Score').find('.visitors').attr('id',App.Host.players[2].mySocketId);
+                }
 
-                console.log("Player4 name : " + App.Host.players[3].playerName);
-                $('#player4Score')
-                    .find('.playerName')
-                    .html(App.Host.players[3].playerName);
+                if (App.Host.numPlayersMax == 4) {
+                    console.log("Player4 name : " + App.Host.players[3].playerName + " " + App.Host.players[3].mySocketId);
+                    $('#player4Score')
+                        .find('.playerName')
+                        .html(App.Host.players[3].playerName);
+                    $('#player4Score').find('.cash').attr('id',App.Host.players[3].mySocketId);
+                    $('#player4Score').find('.visitors').attr('id',App.Host.players[3].mySocketId);
+                }
+            },
 
-                // Set the Score section on screen to 0 for each player.
-                $('#player1Score').find('.score').attr('id',App.Host.players[0].mySocketId);
-                $('#player2Score').find('.score').attr('id',App.Host.players[1].mySocketId);
-                $('#player3Score').find('.score').attr('id',App.Host.players[2].mySocketId);
-                $('#player4Score').find('.score').attr('id',App.Host.players[3].mySocketId);
+            /**
+             * Check the answer clicked by a player.
+             * @param data{{round: *, playerId: *, action: {act:*, type:*, coord:[x,y]}, gameId: *}}
+             */
+            checkAction : function(data) {
+                // Verify that the answer clicked is from the current round.
+                // This prevents a 'late entry' from a player whos screen has not
+                // yet updated to the current round.
+                if (data.round === App.currentRound){
+
+                    // Get the player's score
+                    var $pCash = $('.cash').filter('#' + data.playerId);
+                    var $pVisitors = $('.visitors').filter('#' + data.playerId);
+
+                    switch (data.action.act) {
+                        // Advance player's score if it is correct
+                        case 'cage':
+                        {
+                            // Add 5 to the player's score
+                            $pCash.text(+$pCash.text() - 5);
+
+                            // Set player board on host and player page
+                        } break;
+                        case 'dino':
+                        {
+                            switch (data.action.type) {
+                                case 'velo':
+                                {
+                                    // Add 2 visitors and Sub 5 cash to the player's score
+                                    $pCash.text(+$pCash.text() - 5);
+                                    $pVisitors.text(+$pVisitors.text() + 2);
+
+                                    // Set player board on host and player page
+                                } break;
+                                case 'bront':
+                                {
+                                    // Add 1 visitor and Sub 2 cash to the player's score
+                                    $pCash.text(+$pCash.text() - 2);
+                                    $pVisitors.text(+$pVisitors.text() + 1);
+
+                                    // Set player board on host and player page
+                                } break;
+                                case 'tric':
+                                {
+                                    // Add 1 visitor and Sub 2 cash to the player's score
+                                    $pCash.text(+$pCash.text() - 10);
+                                    $pVisitors.text(+$pVisitors.text() + 5);
+
+                                    // Set player board on host and player page
+                                } break;
+                                case 'tyra':
+                                {
+                                    // Add 1 visitor and Sub 2 cash to the player's score
+                                    $pCash.text(+$pCash.text() - 20);
+                                    $pVisitors.text(+$pVisitors.text() + 10);
+
+                                    // Set player board on host and player page
+                                } break;
+                            }
+
+                        } break;
+
+                        case 'booth':
+                        {
+                            $pCash.text(+$pCash.text() - 3);
+                            //switch(data.action.type) {}
+                            // Set player board on host and player page
+                        }
+
+                    }
+                    // Advance the round
+                    App.currentRound += 1;
+
+                    // Prepare data to send to the server
+                    var data = {
+                        gameId: App.gameId,
+                        round: App.currentRound
+                    }
+
+                    // Notify the server to start the next round.
+                    IO.socket.emit('hostNextTurn', data);
+                }
             },
 
             /**
@@ -572,6 +662,12 @@ jQuery(function($){
             },
 
             onPlayerMakeAds : function() {
+                var data = {
+                    gameId: App.gameId,
+                    playerName: App.Player.myName
+                }
+                IO.socket.emit('playerMakeAds',data);
+
                 $('#gameArea').html("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths.hasOwnProperty(data.boothType).length + "</h3>");
             },
 
@@ -613,10 +709,10 @@ jQuery(function($){
                     "<th>8</th> <th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th>" +
                     "</tr>" +
                     "<tr>" +
-                    "<td class='tile' id='tile_10_1''></td> <td class='tile' id='tile_10_2''></td> <td class='tile' id='tile_10_3''></td> <td class='tile' id='tile_10_4''></td>" +
-                    "<td class='tile' id='tile_10_5''></td> <td class='tile' id='tile_10_6''></td> <td class='tile' id='tile_10_7''></td> <td class='tile' id='tile_10_8''></td>" +
-                    "<td class='tile' id='tile_10_9''></td> <td class='tile' id='tile_10_10''></td> <td class='tile' id='tile_10_11''></td> <td class='tile' id='tile_10_12''></td>" +
-                    "<td class='tile' id='tile_10_13''></td> <td class='tile' id='tile_10_14''></td> <th>10</th>" +
+                    "<td class='tile' id='tile_10_1'></td> <td class='tile' id='tile_10_2'></td> <td class='tile' id='tile_10_3'></td> <td class='tile' id='tile_10_4'></td>" +
+                    "<td class='tile' id='tile_10_5'></td> <td class='tile' id='tile_10_6'></td> <td class='tile' id='tile_10_7'></td> <td class='tile' id='tile_10_8'></td>" +
+                    "<td class='tile' id='tile_10_9'></td> <td class='tile' id='tile_10_10'></td> <td class='tile' id='tile_10_11'></td> <td class='tile' id='tile_10_12'></td>" +
+                    "<td class='tile' id='tile_10_13'></td> <td class='tile' id='tile_10_14'></td> <th>10</th>" +
                     "</tr>" +
                     "<tr>" +
                     "<td class='tile' id='tile_9_1'></td> <td class='tile' id='tile_9_2'></td> <td class='tile' id='tile_9_3'></td> <td class='tile' id='tile_9_4'></td>" +

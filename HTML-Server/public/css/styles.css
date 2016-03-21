@@ -276,17 +276,21 @@ html, body {
     display: inline-block;
     font-size: 1.4EM;
     padding: 2%;
-    min-width: 10%;
+    min-width: 5%;
     margin: 0;
 }
 
-.playerScore .score {
+.playerScore .score, .cash, .visitors {
     text-align: center;
     background-color: #8b9dc3;
 }
 
 .playerScore .playerName {
-    width: 77%;
+    width: 30%;
+    background-color: #3b5998;
+}
+
+.playerScore .cashT, .visitorsT {
     background-color: #3b5998;
 }
 
@@ -333,14 +337,12 @@ html, body {
           BOARD SCREEN
      (intro-screen-template)
    ****************************** */
-#board {
-    padding-right: 10%;
-    padding-left: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    float : right }
+#board, #boards table {
+    display: inline-block;
+    margin: 10px;
+}
 
-#board .tile {
+.tile {
     width:  40px;
     height: 40px;
     font-size: 35px;
@@ -355,7 +357,7 @@ html, body {
     -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
-#board .cage {
+.cage {
      width:  40px;
      height: 40px;
      font-size: 35px;
@@ -372,7 +374,7 @@ html, body {
      -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
  }
 
-#board .dino {
+.dino {
     width:  40px;
     height: 40px;
     font-size: 35px;
@@ -389,7 +391,7 @@ html, body {
     -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
-#board .booth {
+.booth {
     width:  40px;
     height: 40px;
     font-size: 35px;
@@ -406,7 +408,7 @@ html, body {
     -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
-#board .ntile {
+.ntile {
     width:  40px;
     height: 40px;
     font-size: 35px;
