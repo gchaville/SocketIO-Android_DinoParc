@@ -108,6 +108,7 @@ function hostStartGame(gameId) {
         gameId: gameId
     };
     io.sockets.in(data.gameId).emit('newBoard', data);
+    io.sockets.in(data.gameId).emit('newTurn', data);
 };
 
 function hostCheckAction (data) {
@@ -119,9 +120,10 @@ function hostCheckAction (data) {
  * @param data Sent from the client. Contains the current round and gameId (room)
  */
 function hostNextTurn(data) {
-    if(data.turn < data.TurnRemaining ){
+    console.log('Turn : ' + data.turn + '/' + data.maxTurn);
+    if(data.turn < data.maxTurn ){
         // Send a new set of words back to the host and players.
-        io.sockets.in(data.gameId).emit('nextTurn',data);
+        io.sockets.in(data.gameId).emit('newTurn',data);
     } else {
         // If the current round exceeds the number of words, send the 'gameOver' event.
         io.sockets.in(data.gameId).emit('gameOver',data);
@@ -180,6 +182,7 @@ function playerInfo(data) {
 }
 
 function playerTurn (data) {
+    console.log('Player ' + data.playerName + ' turn.');
     io.sockets.in(data.gameId).emit('yourTurn', data);
 }
 
