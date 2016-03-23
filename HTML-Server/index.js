@@ -11,7 +11,7 @@ var path = require('path');
 var app = express();
 
 // Import the Anagrammatix game file.
-var dnp = require('./dinoparc');
+var dnp = require('./dino');
 
 // Create a simple Express application
 // Turn down the logging activity

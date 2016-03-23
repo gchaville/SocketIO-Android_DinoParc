@@ -32,6 +32,9 @@ jQuery(function($){
             IO.socket.on('hostAsPlayerJoinedRoom', IO.playerJoinedRoom );
             IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom );
             IO.socket.on('beginNewGame', IO.beginNewGame );
+            IO.socket.on('hostCheckAction', IO.hostCheckAction);
+            IO.socket.on('nextTurn', IO.newTurn);
+            IO.socket.on('newBoard', IO.newBoard);
             IO.socket.on('gameOver', IO.gameOver);
             IO.socket.on('error', IO.error );
         },
@@ -73,6 +76,27 @@ jQuery(function($){
          */
         beginNewGame : function(data) {
             App[App.myRole].gameCountdown(data);
+        },
+
+        newTurn : function(data) {
+            App.currentTurn = data.turn;
+
+        },
+
+        newBoard : function() {
+            if(App.myRole === 'Player') {
+                App[App.myRole].newBoard();
+            }
+        },
+
+        /**
+         * A player made an action. If this is the host, check the action.
+         * @param data
+         */
+        hostCheckAction : function(data) {
+            if(App.myRole === 'Host') {
+                App.Host.checkAction(data);
+            }
         },
 
         /**
@@ -167,6 +191,7 @@ jQuery(function($){
             App.$doc.on('click', '#btnBuyCage', App.Player.onPlayerBuyCage);
             App.$doc.on('click', '#btnBuyBooth', App.Player.onPlayerBuyBooth);
             App.$doc.on('click', '#btnBuyDino', App.Player.onPlayerBuyDino);
+            App.$doc.on('click', '#btnBuy', App.Player.onPlayerBuy);
             App.$doc.on('click', '#btnAds', App.Player.onPlayerMakeAds);
         },
 
@@ -568,25 +593,7 @@ jQuery(function($){
                     "<label for='inputCoordY'>Coord X :</label>" +
                     "<input id='inputCoordY' type='text' />" +
                     "</div>"))
-
-                var data = {
-                    gameId : App.gameId,
-                    playerName : App.Player.myName,
-                    coordX : $('#inputCoordX').val(),
-                    coordY : $('#inputCoordY').val()
-                }
-                IO.socket.emit('playerBuyCage',data);
-
-                var $cage = [App.Player.cage.length]
-                for (var x=data.coordX; x <= data.coordX+1; x++ ) {
-                    for(var y=data.coordY; y <= data.coordY+1; y++ ) {
-                        var $tile = '#tile_'+data.coordX+'_'+data.coordY;
-                        $($tile).attr('class','cage');
-                        App.Player.cage.push($tile);
-                    }
-                }
-
-                $('#gameArea').html("<h3>Player " + data.playerName + "has bought a cage. He's got " + App.Player.cage.length + "</h3>");
+                $('#gameArea').append($("<button id='btnBuy' value='cage'>BUY</button>"));
             },
 
             /**
@@ -607,21 +614,7 @@ jQuery(function($){
                     "<input type='radio' id='inputBront' name='dinoType' value='Brontosaurus'> Brontosaurus" +
                     "<input type='radio' id='inputTric' name='dinoType' value='Triceratop'> Triceratop" +
                     "<input type='radio' id='inputTyra' name='dinoType' value='Tyrannosaurus'> Tyrannosaurus"));
-
-                var data = {
-                    gameId : App.gameId,
-                    playerName : App.Player.myName,
-                    coordX : $('#inputCoordX').val(),
-                    coordY : $('#inputCoordY').val(),
-                    dinoType : $('input[name="dinoType"]:checked').val(),
-                }
-                IO.socket.emit('playerBuyDino',data);
-
-                var $tile = '#tile_'+data.coordX+'_'+data.coordY;
-                $($tile).attr('class','dino');
-                App.Player.dinos.hasOwnProperty(data.dinoType).push($tile);
-
-                $('#gameArea').html("<h3>Player " + data.playerName + "has bought a " + data.dinoType + " . He's got " + App.Player.dinos.hasOwnProperty(data.dinoType).length + "</h3>");
+                $('#gameArea').append($("<button id='btnBuy' value='dino'>BUY</button>"));
             },
 
             /**
@@ -644,29 +637,78 @@ jQuery(function($){
                     "<input type='radio' id='inputCasi' name='boothType' value='Casino'> Casino" +
                     "<input type='radio' id='inputSpy' name='boothType' value='Spy'> Spy" +
                     "<input type='radio' id='inputPale' name='boothType' value='Paleontologist'> Paleontologist"));
+                $('#gameArea').append($("<button id='btnBuy' value='booth'>BUY</button>"));
+            },
 
-                var data = {
-                    gameId : App.gameId,
-                    playerName : App.Player.myName,
-                    coordX : $('#inputCoordX').val(),
-                    coordY : $('#inputCoordY').val(),
-                    boothType : $('input[name="boothType"]:checked').val(),
+            onPlayerBuy : function() {
+                var $btnValue = $('#btnBuy').val();
+
+                switch($btnValue) {
+                    case 'cage':
+                        var data = {
+                            gameId : App.gameId,
+                            playerName : App.Player.myName,
+                            action:'playerBuyCage',
+                            coordX : $('#inputCoordX').val(),
+                            coordY : $('#inputCoordY').val()
+                        }
+                        IO.socket.emit('playerAction',data);
+
+                        var $cage = [App.Player.cage.length]
+                        for (var x=data.coordX; x <= data.coordX+1; x++ ) {
+                            for(var y=data.coordY; y <= data.coordY+1; y++ ) {
+                                var $tile = '#tile_'+data.coordX+'_'+data.coordY;
+                                $($tile).attr('class','cage');
+                                App.Player.cage.push($tile);
+                            }
+                        }
+
+                        $('#gameArea').html("<h3>Player " + data.playerName + "has bought a cage. He's got " + App.Player.cage.length + "</h3>");
+                        break;
+                    case 'dino':
+                        var data = {
+                            gameId : App.gameId,
+                            playerName : App.Player.myName,
+                            action:'playerBuyDino',
+                            coordX : $('#inputCoordX').val(),
+                            coordY : $('#inputCoordY').val(),
+                            dinoType : $('input[name="dinoType"]:checked').val(),
+                        }
+                        IO.socket.emit('playerAction',data);
+
+                        var $tile = '#tile_'+data.coordX+'_'+data.coordY;
+                        $($tile).attr('class','dino');
+                        App.Player.dinos.hasOwnProperty(data.dinoType).push($tile);
+
+                        $('#gameArea').html("<h3>Player " + data.playerName + "has bought a " + data.dinoType + " . He's got " + App.Player.dinos.hasOwnProperty(data.dinoType).length + "</h3>");
+                        break;
+                    case 'booth':
+                        var data = {
+                            gameId : App.gameId,
+                            playerName : App.Player.myName,
+                            action:'playerBuyBooth',
+                            coordX : $('#inputCoordX').val(),
+                            coordY : $('#inputCoordY').val(),
+                            boothType : $('input[name="boothType"]:checked').val(),
+                        }
+                        IO.socket.emit('playerAction',data);
+
+                        var $tile = '#tile_'+data.coordX+'_'+data.coordY;
+                        $($tile).attr('class','booth');
+                        App.Player.booths.hasOwnProperty(data.boothType).push($tile);
+
+                        $('#gameArea').html("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths.hasOwnProperty(data.boothType).length + "</h3>");
+                        break;
                 }
-                IO.socket.emit('playerBuyBooth',data);
-
-                var $tile = '#tile_'+data.coordX+'_'+data.coordY;
-                $($tile).attr('class','booth');
-                App.Player.booths.hasOwnProperty(data.boothType).push($tile);
-
-                $('#gameArea').html("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths.hasOwnProperty(data.boothType).length + "</h3>");
             },
 
             onPlayerMakeAds : function() {
                 var data = {
                     gameId: App.gameId,
-                    playerName: App.Player.myName
+                    playerName: App.Player.myName,
+                    action:'playerMakeAds'
                 }
-                IO.socket.emit('playerMakeAds',data);
+                IO.socket.emit('playerAction',data);
 
                 $('#gameArea').html("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths.hasOwnProperty(data.boothType).length + "</h3>");
             },
@@ -700,7 +742,7 @@ jQuery(function($){
              * Show the board of the player
              * @param data{}
              */
-            newBoard : function(data) {
+            newBoard : function() {
                 // Create an board hard coded
                 var $str = $(
                     "<table id='board'>" +

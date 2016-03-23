@@ -20,11 +20,13 @@ exports.initGame = function(sio, socket){
     gameSocket.on('hostAsPlayerJoinGame', hostAsPlayerJoinGame);
     gameSocket.on('hostRoomFull', hostPrepareGame);
     gameSocket.on('hostCountdownFinished', hostStartGame);
-    gameSocket.on('hostNextRound', hostNextRound);
+    gameSocket.on('playerAction', hostCheckAction);
+    gameSocket.on('hostNextTurn', hostNextTurn);
 
     // Player Events
     gameSocket.on('playerJoinGame', playerJoinGame);
     gameSocket.on('playerInfo', playerInfo);
+    gameSocket.on('playerTurn', playerTurn);
     gameSocket.on('playerRestart', playerRestart);
 }
 
@@ -102,17 +104,24 @@ function hostPrepareGame(gameId) {
  */
 function hostStartGame(gameId) {
     console.log('Game Started.');
-    sendWord(0,gameId);
+    var data = {
+        gameId: gameId
+    };
+    io.sockets.in(data.gameId).emit('newBoard', data);
 };
 
+function hostCheckAction (data) {
+    console.log(data.playerName, data.action);
+    io.sockets.in(data.gameId).emit('hostCheckAction',data);
+}
 /**
- * A player answered correctly. Time for the next word.
+ * A player answered correctly. Time for the next turn.
  * @param data Sent from the client. Contains the current round and gameId (room)
  */
-function hostNextRound(data) {
-    if(data.round < wordPool.length ){
+function hostNextTurn(data) {
+    if(data.turn < data.TurnRemaining ){
         // Send a new set of words back to the host and players.
-        sendWord(data.round, data.gameId);
+        io.sockets.in(data.gameId).emit('nextTurn',data);
     } else {
         // If the current round exceeds the number of words, send the 'gameOver' event.
         io.sockets.in(data.gameId).emit('gameOver',data);
@@ -168,6 +177,10 @@ function playerInfo(data) {
     // The player's answer is attached to the data object.  \
     // Emit an event with the answer so it can be checked by the 'Host'
     io.sockets.in(data.gameId).emit('playerInfo', data);
+}
+
+function playerTurn (data) {
+    io.sockets.in(data.gameId).emit('yourTurn', data);
 }
 
 /**

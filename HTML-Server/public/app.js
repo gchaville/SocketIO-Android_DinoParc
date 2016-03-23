@@ -250,7 +250,7 @@ jQuery(function($){
 
                 // collect data to send to the server
                 var data = {
-                    numPlayersMax : +($('input[name="numberPlayers"]:checked').val()),
+                    numPlayersMax : $('input[name="numberPlayers"]:checked').val(),
                     numTurnsMax : $('input[name="numberTurns"]:checked').val(),
                     hostName : $('#inputHostName').val()
                 };
