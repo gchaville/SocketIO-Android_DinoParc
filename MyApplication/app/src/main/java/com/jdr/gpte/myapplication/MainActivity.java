@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     class views{
         int x ,y;
         View Button;
-        Tile tuile_def;
+        Tile tuile_def = new Tile();
+        Boolean onBoard = true;
         views(int i, int j, View b){
             x = i;
             y = j;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.Cage:
                 ((TextView)findViewById(R.id.texte)).setText("Cage");
-                buycage(R.drawable.cage);
+                buycage(R.drawable.cage, 1);
                 return true;
             case R.id.Ads:
                 ((TextView)findViewById(R.id.texte)).setText("Ads");
@@ -74,6 +75,30 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Booth:
                 ((TextView)findViewById(R.id.texte)).setText("Booth");
                 buy(R.drawable.booth);
+                return true;
+            case R.id.Restaurant:
+                ((TextView)findViewById(R.id.texte)).setText("Restaurant");
+                buy(R.drawable.restaurant);
+                return true;
+            case R.id.Security:
+                ((TextView)findViewById(R.id.texte)).setText("Security");
+                buy(R.drawable.securite);
+                return true;
+            case R.id.Bathroom:
+                ((TextView)findViewById(R.id.texte)).setText("Bathroom");
+                buy(R.drawable.washroom);
+                return true;
+            case R.id.Casino:
+                ((TextView)findViewById(R.id.texte)).setText("Casino");
+                buy(R.drawable.casino);
+                return true;
+            case R.id.Spy:
+                ((TextView)findViewById(R.id.texte)).setText("Spy");
+                buy(R.drawable.espionnage);
+                return true;
+            case R.id.Paleontologist:
+                ((TextView)findViewById(R.id.texte)).setText("Paleontologist");
+                buy(R.drawable.paleantologue);
                 return true;
             case R.id.Dino:
                 ((TextView)findViewById(R.id.texte)).setText("Dino");
@@ -87,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    void buycage (int option) {
+    void buycage (int option, int ty) {
         RelativeLayout rel = (RelativeLayout) findViewById(R.id.frame);
         GridLayout grid = (GridLayout) findViewById(R.id.grid);
         for (int i = 0; i < arrow.size(); i++) {
@@ -105,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         param.rowSpec = GridLayout.spec(row);
         oImageView.setLayoutParams(param);
         views image = new views(col, row, oImageView);
+        image.tuile_def.tuileType = Tile.type.cage;
         arrow.add(image);
         grid.addView(image.Button);
         ImageView Cageview = new ImageView(this);
@@ -117,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         param.rowSpec = GridLayout.spec(row+1);
         oImageView.setLayoutParams(param);
         image = new views(col, row+1, Cageview);
+        image.tuile_def.tuileType = Tile.type.cage;
         arrow.add(image);
         grid.addView(image.Button);
         for (int j = 0 ; j < 2;j++) {
@@ -130,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             param.rowSpec = GridLayout.spec(row+j);
             oImageView.setLayoutParams(param);
             image = new views(col+1, row+j, Cageview);
+            image.tuile_def.tuileType = Tile.type.cage;
             arrow.add(image);
             grid.addView(image.Button);
         }
@@ -194,7 +222,29 @@ public class MainActivity extends AppCompatActivity {
         param.rowSpec = GridLayout.spec(row);
         oImageView.setLayoutParams(param);
         views image= new views(col,row,oImageView);
-        //image.tuile_def.tuileType= Tile.type.Spy;
+        switch (option) {
+            case R.drawable.booth:
+                image.tuile_def.tuileType = Tile.type.booth;
+                break;
+            case R.drawable.restaurant:
+                image.tuile_def.tuileType = Tile.type.Restaurant;
+                break;
+            case R.drawable.securite:
+                image.tuile_def.tuileType = Tile.type.Security;
+                break;
+            case R.drawable.washroom:
+                image.tuile_def.tuileType = Tile.type.Bathroom;
+                break;
+            case R.drawable.casino:
+                image.tuile_def.tuileType = Tile.type.Casino;
+                break;
+            case R.drawable.espionnage:
+                image.tuile_def.tuileType = Tile.type.Spy;
+                break;
+            case R.drawable.paleantologue:
+                image.tuile_def.tuileType = Tile.type.Paleontologist;
+                break;
+        }
         arrow.add(image);
         grid.addView(image.Button);
         arrows(grid, col - 1, row, R.drawable.arrow_west);
@@ -234,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
         });
         rel.addView(validate);
         achat = 1;
+        move(1,1);
     }
 
     void arrows(GridLayout grid, int x, int y, int draw){
@@ -274,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
             arrow.get(i).y+=y;
             GridLayout grid = (GridLayout) findViewById(R.id.grid);
             GridLayout.LayoutParams param =new GridLayout.LayoutParams();
+            arrow.get(i).onBoard = false;
             grid.removeViewInLayout(arrow.get(i).Button);
             if (arrow.get(i).x<10 && arrow.get(i).x>=0 && (arrow.get(i).x>2 || arrow.get(i).y>1) && arrow.get(i).y<14 && arrow.get(i).y>=0) {
                 param.height = 48;
@@ -282,16 +334,32 @@ public class MainActivity extends AppCompatActivity {
                 param.rowSpec = GridLayout.spec(arrow.get(i).y);
                 arrow.get(i).Button.setLayoutParams(param);
                 grid.addView(arrow.get(i).Button);
+                arrow.get(i).onBoard = true;
             }
         }
         for(int i =0 ; i<achat;i++) {
-            if (available) {
-                if (board.tuiles[arrow.get(i).x][arrow.get(i).y].isAvailable) {
-                    rel.removeViewInLayout(validate);
-                    rel.addView(validate);
-                } else {
-                    rel.removeViewInLayout(validate);
-                    available = false;
+            if (arrow.get(i).onBoard) {
+                if (available) {
+                    if (board.tuiles[arrow.get(i).x][arrow.get(i).y].isAvailable) {
+                        rel.removeViewInLayout(validate);
+                        rel.addView(validate);
+                    } else {
+                        rel.removeViewInLayout(validate);
+                        available = false;
+                    }
+                }
+            }
+        }
+        for(int i = achat; i< arrow.size(); i++) {
+            if (arrow.get(i).onBoard) {
+                if (available) {
+                    if (board.tuiles[arrow.get(i).x][arrow.get(i).y].tuileType.value == 0 || board.tuiles[arrow.get(i).x][arrow.get(i).y].tuileType == arrow.get(0).tuile_def.tuileType) {
+                        rel.removeViewInLayout(validate);
+                        rel.addView(validate);
+                    } else {
+                        rel.removeViewInLayout(validate);
+                        available = false;
+                    }
                 }
             }
         }
@@ -305,6 +373,7 @@ public class MainActivity extends AppCompatActivity {
         }
         for(int i =  0; i<achat ;i++) {
             board.tuiles[arrow.get(i).x][arrow.get(i).y].isAvailable = false;
+            board.tuiles[arrow.get(i).x][arrow.get(i).y].tuileType = arrow.get(i).tuile_def.tuileType;
         }
         arrow.clear();
         rel.removeViewInLayout(validate);

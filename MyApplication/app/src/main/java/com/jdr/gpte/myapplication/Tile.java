@@ -9,21 +9,25 @@ public class Tile {
     String tag;
     Boolean isAvailable;
     public enum type {
-        vide,
-        cage,
-        tyranosaure,
-        velociraptor,
-        brontosaure,
-        triceratops,
-        Restaurant,
-        Security,
-        Bathroom,
-        Casino,
-        Spy,
-        Paleontologist;
+        vide(0),
+        cage(1),
+        booth(12),
+        tyranosaure(2),
+        velociraptor(3),
+        brontosaure(4),
+        triceratops(5),
+        Restaurant(6),
+        Security(7),
+        Bathroom(8),
+        Casino(9),
+        Spy(10),
+        Paleontologist(11);
 
+        public int value;
+        private type (final int ty) {value = ty;}
     }
-    type tuileType;
+
+    public type tuileType;
     View tile;
     int col, row;
 
