@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/Park"
+        android:title="Park options"
+        android:icon="@android:drawable/ic_menu_preferences"
+        >
+
+        <menu android:id="@+id/sousmenu">
+            <item android:id="@+id/Cage"
+                android:title="Buy cage"   />
+
+            <item android:id="@+id/Ads"
+                android:title="Advertisment"  />
+
+            <item android:id="@+id/Dino"
+                android:title="Buy Dino"  />
+
+            <item android:id="@+id/Booth"
+                android:title="Buy booth" />
+
+            <item android:id="@+id/Restaurant"
+                android:title="Buy Restaurant" />
+
+            <item android:id="@+id/Security"
+                android:title="Buy Security" />
+
+            <item android:id="@+id/Bathroom"
+                android:title="Buy Bathroom" />
+
+            <item android:id="@+id/Casino"
+                android:title="Buy Casino" />
+
+            <item android:id="@+id/Spy"
+                android:title="Buy Spy" />
+
+            <item android:id="@+id/Paleontologist"
+                android:title="Buy Paleontologist" />
+        </menu>
+    </item>
+
+    <item android:id="@+id/quit"
+        android:title="Quit"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        />
+</menu>
