@@ -3,16 +3,6 @@
  * Module dependencies.
  */
 
-var http = require('http');
-var read = require('fs').readFileSync;
-var engine = require('engine.io');
-var client = require('socket.io-client');
-var clientVersion = require('socket.io-client/package').version;
-var Client = require('./client');
-var Namespace = require('./namespace');
-var Adapter = require('socket.io-adapter');
-var debug = require('debug')('socket.io:server');
-var url = require('url');
 
 /**
  * Module exports.
