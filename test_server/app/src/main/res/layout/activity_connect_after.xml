@@ -12,32 +12,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_buyCage"
+                android:id="@+id/button_buyCage"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_buyDino"
+                android:id="@+id/button_buyDino"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_buyBooth"
+                android:id="@+id/button_buyBooth"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
         <TextView
-            android:id="@+id/ipaddress_display"
+            android:id="@+id/action_display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/ipaddress"
+            android:layout_marginTop="20dp"
             android:textColor="@color/textnormal"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textSize="20dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:id="@+id/name_display"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="@string/username"
-            android:textColor="@color/textnormal"
-            android:textSize="30dp" />
 
     </LinearLayout>
 </ScrollView>

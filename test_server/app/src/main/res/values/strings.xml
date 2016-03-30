@@ -23,11 +23,19 @@
     <!-- Strings related to login -->
     <string name="ipaddress">IP address</string>
     <string name="username">Username</string>
+    <string name="gameid">GameID</string>
+
+    <string name="prompt_gameid">What\'s your Game ID?</string>
     <string name="prompt_ipaddress">What\'s your IP address?</string>
     <string name="prompt_username">What\'s your nickname?</string>
+
     <string name="action_sign_in">Join</string>
     <string name="action_connect">Connect</string>
     <string name="action_sign_in_short">Join</string>
+
+    <string name="action_buyCage">Cage</string>
+    <string name="action_buyDino">Dino</string>
+    <string name="action_buyBooth">Booth</string>
 
     <string name="error_field_required">This field is required</string>
 

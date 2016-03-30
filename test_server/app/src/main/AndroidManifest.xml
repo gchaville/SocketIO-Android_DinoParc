@@ -14,8 +14,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".IPActivity"
-            android:label="ipadress_act"
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize|stateVisible">
             <intent-filter>
@@ -23,12 +23,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.AppCompat"
-            android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
         <activity
             android:name=".Connect_after"

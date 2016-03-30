@@ -29,75 +29,27 @@ import io.socket.SocketIOException;
  */
 public class LoginActivity extends Activity {
 
-    private SocketIO mSocket;
     private EditText mUsernameView;
-
-    private String mUsername;
+    private EditText mIPaddressView;
+    private EditText mGameidView;
 
     private String mIPaddress;
+    private String mUsername;
+    private String mGameid;
 
     final String EXTRA_IP = "ip_address";
     final String EXTRA_NAME = "username";
+    final String EXTRA_GAMEID = "gameid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        Intent intent = getIntent();
-        mIPaddress = intent.getStringExtra(EXTRA_IP);
-
-        TextView addressDisplay = (TextView) findViewById(R.id.ipaddress_display);
-
-
-            try {
-                mSocket = new SocketIO(mIPaddress);
-                mSocket.connect(
-                        new IOCallback() {
-                            @Override
-                            public void onMessage(JSONObject json, IOAcknowledge ack) {
-                                try {
-                                    System.out.println("Server said:" + json.toString(2));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onMessage(String data, IOAcknowledge ack) {
-                                System.out.println("Server said: " + data);
-                            }
-
-                            @Override
-                            public void onError(SocketIOException socketIOException) {
-                                System.out.println("an Error occured");
-                                socketIOException.printStackTrace();
-                            }
-
-                            @Override
-                            public void onDisconnect() {
-                                System.out.println("Connection terminated.");
-                            }
-
-                            @Override
-                            public void onConnect() {
-                                System.out.println("Connection established");
-                            }
-
-                            @Override
-                            public void on(String event, IOAcknowledge ack, Object... args) {
-                                System.out.println("Server triggered event '" + event + "'");
-                            }
-                        }
-                );
-            }
-            catch (MalformedURLException e1) {
-                    e1.printStackTrace();
-            }
-
         // Set up the login form.
         mUsernameView = (EditText) findViewById(R.id.username_input);
+        mIPaddressView = (EditText) findViewById(R.id.ipaddress_input);
+        mGameidView = (EditText) findViewById(R.id.gameid_input);
 
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new OnClickListener() {
@@ -113,7 +65,6 @@ public class LoginActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 
-        mSocket.disconnect();
     }
     /**
      * Attempts to sign in the account specified by the login form.
@@ -123,9 +74,13 @@ public class LoginActivity extends Activity {
     private void attemptLogin() {
         // Reset errors.
         mUsernameView.setError(null);
+        mIPaddressView.setError(null);
+        mGameidView.setError(null);
 
         // Store values at the time of the login attempt.
         String username = mUsernameView.getText().toString().trim();
+        String ipaddress = mIPaddressView.getText().toString().trim();
+        String gameid = mGameidView.getText().toString().trim();
 
         // Check for a valid username.
         if (TextUtils.isEmpty(username)) {
@@ -136,36 +91,34 @@ public class LoginActivity extends Activity {
             return;
         }
 
+        if (TextUtils.isEmpty(ipaddress)) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            mIPaddressView.setError(getString(R.string.error_field_required));
+            mIPaddressView.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(gameid)) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            mGameidView.setError(getString(R.string.error_field_required));
+            mGameidView.requestFocus();
+            return;
+        }
+
+        mIPaddress = "http://"+ipaddress+"/";
         mUsername = username;
+        mGameid = gameid;
 
         Intent intent = new Intent(LoginActivity.this, Connect_after.class);
         intent.putExtra(EXTRA_IP, mIPaddress);
         intent.putExtra(EXTRA_NAME, mUsername);
+        intent.putExtra(EXTRA_GAMEID, mGameid);
         startActivity(intent);
-        // perform the user login attempt.
-       mSocket.emit("add user", username);
+
     }
 
-
-    /*private Emitter.Listener onLogin = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-
-            int numUsers;
-            try {
-                numUsers = data.getInt("numUsers");
-            } catch (JSONException e) {
-                return;
-            }
-
-            Intent intent = new Intent();
-            intent.putExtra("username", mUsername);
-            intent.putExtra("numUsers", numUsers);
-            setResult(RESULT_OK, intent);
-            finish();
-        }
-    };*/
 }
 
 

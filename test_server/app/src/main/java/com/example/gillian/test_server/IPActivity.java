@@ -15,10 +15,13 @@ import android.widget.EditText;
 public class IPActivity extends Activity {
 
     private EditText mIPaddressView;
+    private EditText mUsernameView;
 
+    private String mUsername;
     private String mIPaddress;
 
     final String EXTRA_IP = "ip_address";
+    final String EXTRA_NAME = "username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class IPActivity extends Activity {
 
         // Set up the login form.
         mIPaddressView = (EditText) findViewById(R.id.ipaddress_input);
+        mUsernameView = (EditText) findViewById(R.id.username_input);
 
         Button signInButton = (Button) findViewById(R.id.connect_button);
         signInButton.setOnClickListener(new OnClickListener() {

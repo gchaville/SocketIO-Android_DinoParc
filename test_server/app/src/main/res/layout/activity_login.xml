@@ -15,17 +15,17 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/ipaddress_display"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="@string/ipaddress"
-                android:textColor="@color/textnormal"
-                android:textSize="30dp"
-                android:textStyle="bold" />
+        <EditText
+            android:id="@+id/ipaddress_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_ipaddress"
+            android:inputType="textPostalAddress"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-            <EditText
+        <EditText
                 android:id="@+id/username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,6 +34,16 @@
                 android:maxLength="14"
                 android:maxLines="1"
                 android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/gameid_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_gameid"
+            android:inputType="textPostalAddress"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:singleLine="true" />
         <Button
                 android:id="@+id/sign_in_button"
                 style="?android:textAppearanceSmall"
