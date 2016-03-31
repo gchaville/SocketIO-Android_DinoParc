@@ -365,39 +365,56 @@ jQuery(function($){
                 });
 
                 // Display the players' names on screen
-                console.log("Player1 name : " + App.Host.players[0].playerName + " " + App.Host.players[0].mySocketId);
+                //console.log("Player1 name : " + App.Host.players[0].playerName + " " + App.Host.players[0].mySocketId);
                 $('#player1Score')
                     .find('.playerName')
                     .html(App.Host.players[0].playerName);
                 $('#player1Score').find('.cash').attr('id',App.Host.players[0].mySocketId);
                 $('#player1Score').find('.visitors').attr('id',App.Host.players[0].mySocketId);
+                $('#boards').find('.board1').attr('id',App.Host.players[0].mySocketId);
 
                 if (App.Host.numPlayersMax == 2) {
-                    console.log("Player2 name : " + App.Host.players[1].playerName + " " + App.Host.players[1].mySocketId);
+                    //console.log("Player2 name : " + App.Host.players[1].playerName + " " + App.Host.players[1].mySocketId);
                     $('#player2Score')
                         .find('.playerName')
                         .html(App.Host.players[1].playerName);
                     $('#player2Score').find('.cash').attr('id', App.Host.players[1].mySocketId);
                     $('#player2Score').find('.visitors').attr('id', App.Host.players[1].mySocketId);
+                    $('#boards').find('.board2').attr('id',App.Host.players[1].mySocketId);
+                }
+                else {
+                    $('.board2').remove();
+                    $('#player2Score').remove();
                 }
 
                 if (App.Host.numPlayersMax == 3) {
-                    console.log("Player3 name : " + App.Host.players[2].playerName +" " + App.Host.players[2].mySocketId);
+                    //console.log("Player3 name : " + App.Host.players[2].playerName +" " + App.Host.players[2].mySocketId);
                     $('#player3Score')
                         .find('.playerName')
                         .html(App.Host.players[2].playerName);
                     $('#player3Score').find('.cash').attr('id',App.Host.players[2].mySocketId);
                     $('#player3Score').find('.visitors').attr('id',App.Host.players[2].mySocketId);
+                    $('#boards').find('.board3').attr('id',App.Host.players[2].mySocketId);
+                }
+                else {
+                    $('.board3').remove();
+                    $('#player3Score').remove();
                 }
 
                 if (App.Host.numPlayersMax == 4) {
-                    console.log("Player4 name : " + App.Host.players[3].playerName + " " + App.Host.players[3].mySocketId);
+                    //console.log("Player4 name : " + App.Host.players[3].playerName + " " + App.Host.players[3].mySocketId);
                     $('#player4Score')
                         .find('.playerName')
                         .html(App.Host.players[3].playerName);
                     $('#player4Score').find('.cash').attr('id',App.Host.players[3].mySocketId);
                     $('#player4Score').find('.visitors').attr('id',App.Host.players[3].mySocketId);
+                    $('#boards').find('.board4').attr('id',App.Host.players[3].mySocketId);
                 }
+                else {
+                    $('.board4').remove();
+                    $('#player4Score').remove();
+                };
+
 
             },
 
@@ -409,7 +426,7 @@ jQuery(function($){
                     turnPlayed:  App.currentTurn
                 }
 
-                console.log('Player ' + data.playerName + 'turn');
+                //console.log('Player ' + data.playerName + 'turn');
                 IO.socket.emit('playerTurn', data);
             },
 
@@ -421,26 +438,33 @@ jQuery(function($){
                 // Verify that the answer clicked is from the current round.
                 // This prevents a 'late entry' from a player whos screen has not
                 // yet updated to the current round.
-               // if (data.turnPlayed === App.currentTurn){
+
                 // Get the player's score
                 var $pCash = $('.cash').filter('#' + data.playerId);
                 var $pVisitors = $('.visitors').filter('#' + data.playerId);
-
+                var $pBoard = $('#boards').children('#' + data.playerId);
                 //console.log(data + $pCash + $pVisitors);
 
-                switch (data.action.act) {
+                switch (data.action) {
                     // Advance player's score if it is correct
-                    case 'cage':
+                    case 'playerBuyCage':
                     {
                         // Add 5 to the player's score
                         $pCash.text(+$pCash.text() - 5);
 
+                        var xB = parseInt(data.coordX)+1; var yB = parseInt(data.coordY)+1;
+                        for (var x=data.coordX; x <= xB; x++ ) {
+                            for(var y=data.coordY; y <= yB; y++ ) {
+                                var tile = '#tile_'+x+'_'+y;
+                                $pBoard.find(tile).attr('class','cage');
+                            }
+                        }
                         // Set player board on host and player page
                     } break;
-                    case 'dino':
+                    case 'playerBuyDino':
                     {
-                        switch (data.action.type) {
-                            case 'velo':
+                        switch (data.dinoType) {
+                            case 'Velociraptor':
                             {
                                 // Add 2 visitors and Sub 5 cash to the player's score
                                 $pCash.text(+$pCash.text() - 5);
@@ -448,7 +472,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 'bront':
+                            case 'Brontosaurus':
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 2);
@@ -456,7 +480,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 'tric':
+                            case 'Triceratops':
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 10);
@@ -464,7 +488,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 'tyra':
+                            case 'Tyrannosaurus':
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 20);
@@ -474,13 +498,17 @@ jQuery(function($){
                             } break;
                         }
 
+                        var tile = '#tile_'+data.coordX+'_'+data.coordY;
+                        $pBoard.find(tile).attr('class','dino');
+
                     } break;
 
-                    case 'booth':
+                    case 'playerBuyBooth':
                     {
                         $pCash.text(+$pCash.text() - 3);
                         //switch(data.action.type) {}
-                        // Set player board on host and player page
+                        var tile = '#tile_'+data.coordX+'_'+data.coordY;
+                        $pBoard.find(tile).attr('class','booth');
                     }
 
                 }
@@ -512,8 +540,7 @@ jQuery(function($){
             nextPlayer: function() {
 
                 var data = {
-                    playerName:  App.Host.players[App.Host.numPlayersHasPlayed].playerName,
-                    turnPlayed:  App.currentTurn
+                    playerName:  App.Host.players[App.Host.numPlayersHasPlayed].playerName
                 }
 
                 console.log('Player ' + data.playerName + 'turn');
@@ -575,8 +602,6 @@ jQuery(function($){
              */
             hostSocketId: '',
 
-            turnPlayed:0,
-
             /**
              * The player's name entered on the 'Join' screen.
              */
@@ -586,9 +611,9 @@ jQuery(function($){
 
             visitors: 0,
 
-            cage: {},
+            cage: [],
 
-            dinos: {Velociraptor:[], Brontosaurus:[], Triceratop:[], Tyrannosaurus:[]},
+            dinos: {Velociraptor:[], Brontosaurus:[], Triceratops:[], Tyrannosaurus:[]},
 
             booths: {Restaurant:[], Security:[], Bathroom:[], Casino:[], Spy:[], Paleontologist:[]},
 
@@ -674,9 +699,9 @@ jQuery(function($){
                     "<label id='inputdinoType'>Type of Dinosaur :</label>" +
                     "<input type='radio' id='inputVelo' name='dinoType' value='Velociraptor' checked> Velociraptor" +
                     "<input type='radio' id='inputBront' name='dinoType' value='Brontosaurus'> Brontosaurus" +
-                    "<input type='radio' id='inputTric' name='dinoType' value='Triceratop'> Triceratop" +
+                    "<input type='radio' id='inputTric' name='dinoType' value='Triceratops'> Triceratop" +
                     "<input type='radio' id='inputTyra' name='dinoType' value='Tyrannosaurus'> Tyrannosaurus" +
-                    "<button id='btnBuy' value='booth'>BUY</button>" +
+                    "<button id='btnBuy' value='dino'>BUY</button>" +
                     "</div>"));
             },
 
@@ -714,59 +739,63 @@ jQuery(function($){
                     case 'cage':
                         var data = {
                             gameId : App.gameId,
+                            playerId : App.mySocketId,
                             playerName : App.Player.myName,
                             action:'playerBuyCage',
                             coordX : $('#inputCoordX').val(),
-                            coordY : $('#inputCoordY').val(),
-                            turnPlayed: App.Player.turnPlayed
+                            coordY : $('#inputCoordY').val()
                         }
                         IO.socket.emit('playerAction',data);
 
-                        for (var x=data.coordX; x <= data.coordX+1; x++ ) {
-                            for(var y=data.coordY; y <= data.coordY+1; y++ ) {
-                                var tile = '#tile_'+data.coordX+'_'+data.coordY;
+                        var xB = parseInt(data.coordX)+1; var yB = parseInt(data.coordY)+1;
+                        var tileInfo = [];
+                        for (var x=data.coordX; x <= xB; x++ ) {
+                            for(var y=data.coordY; y <= yB; y++ ) {
+                                var tile = '#tile_'+x+'_'+y;
                                 $(tile).attr('class','cage');
-                               // App.Player.cage.push(tile);
+                                tileInfo.push(tile);
                             }
                         }
+                        App.Player.cage.push(tileInfo);
 
                         $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a cage. He's got " + App.Player.cage.length + "</h3>"));
                         break;
+
                     case 'dino':
                         var data = {
                             gameId : App.gameId,
+                            playerId : App.mySocketId,
                             playerName : App.Player.myName,
                             action:'playerBuyDino',
                             coordX : $('#inputCoordX').val(),
                             coordY : $('#inputCoordY').val(),
-                            dinoType : $('input[name="dinoType"]:checked').val(),
-                            turnPlayed: App.Player.turnPlayed
+                            dinoType : $('input[name="dinoType"]:checked').val()
                         }
                         IO.socket.emit('playerAction',data);
 
                         var tile = '#tile_'+data.coordX+'_'+data.coordY;
                         $(tile).attr('class','dino');
-                        //App.Player.dinos.hasOwnProperty(data.dinoType).push(tile);*/
+                        App.Player.dinos[data.dinoType].push(tile);
 
-                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + data.dinoType + " . He's got " + App.Player.dinos.hasOwnProperty(data.dinoType).length + "</h3>"));
+                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + data.dinoType + " . He's got " + App.Player.dinos[data.dinoType].length + "</h3>"));
                         break;
                     case 'booth':
                         var data = {
                             gameId : App.gameId,
+                            playerId : App.mySocketId,
                             playerName : App.Player.myName,
                             action:'playerBuyBooth',
                             coordX : $('#inputCoordX').val(),
                             coordY : $('#inputCoordY').val(),
-                            boothType : $('input[name="boothType"]:checked').val(),
-                            turnPlayed: App.Player.turnPlayed
+                            boothType : $('input[name="boothType"]:checked').val()
                         }
                         IO.socket.emit('playerAction',data);
 
                         var tile = '#tile_'+data.coordX+'_'+data.coordY;
                         $(tile).attr('class','booth');
-                        //App.Player.booths.hasOwnProperty(data.boothType).push(tile);*/
+                        App.Player.booths[data.boothType].push(tile);
 
-                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths.hasOwnProperty(data.boothType).length + "</h3>"));
+                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths[data.boothType].length + "</h3>"));
                         break;
                 }
                 $('#inputBuy').remove();
@@ -781,9 +810,9 @@ jQuery(function($){
 
                 var data = {
                     gameId: App.gameId,
+                    playerId : App.mySocketId,
                     playerName: App.Player.myName,
-                    action:'playerMakeAds',
-                    turnPlayed: App.Player.turnPlayed
+                    action:'playerMakeAds'
                 }
                 IO.socket.emit('playerAction',data);
 
