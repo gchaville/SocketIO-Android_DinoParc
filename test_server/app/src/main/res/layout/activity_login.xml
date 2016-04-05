@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_ipaddress"
-            android:inputType="textPostalAddress"
+            android:inputType="textPhonetic"
             android:maxLength="30"
             android:maxLines="1"
             android:singleLine="true" />
@@ -40,10 +40,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_gameid"
-            android:inputType="textPostalAddress"
+            android:inputType="number"
             android:maxLength="30"
             android:maxLines="1"
             android:singleLine="true" />
+
         <Button
                 android:id="@+id/sign_in_button"
                 style="?android:textAppearanceSmall"

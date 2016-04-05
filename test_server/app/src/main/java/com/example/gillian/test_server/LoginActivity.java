@@ -1,21 +1,26 @@
 package com.example.gillian.test_server;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 
 /**
  * A login screen that offers login via username.
  */
 public class LoginActivity extends Activity {
+
+    private MySocket mSocketService;
+    private boolean mServiceBound = false;
 
     private EditText mUsernameView;
     private EditText mIPaddressView;
@@ -24,10 +29,6 @@ public class LoginActivity extends Activity {
     private String mIPaddress;
     private String mUsername;
     private String mGameid;
-
-    final String EXTRA_IP = "ip_address";
-    final String EXTRA_NAME = "username";
-    final String EXTRA_GAMEID = "gameid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +100,44 @@ public class LoginActivity extends Activity {
         mUsername = username;
         mGameid = gameid;
 
+        Bundle infos = new Bundle();
+        infos.putString(Constants.EXTRA_IP, mIPaddress);
+        infos.putString(Constants.EXTRA_NAME, mUsername);
+        infos.putString(Constants.EXTRA_GAMEID, mGameid);
+
+        Intent serviceIntent = new Intent(LoginActivity.this, MySocket.class);
+        serviceIntent.putExtras(infos);
+        startService(serviceIntent);
+        bindService(serviceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+
         Intent intent = new Intent(LoginActivity.this, Connect_after.class);
-        intent.putExtra(EXTRA_IP, mIPaddress);
-        intent.putExtra(EXTRA_NAME, mUsername);
-        intent.putExtra(EXTRA_GAMEID, mGameid);
+        intent.putExtras(infos);
         startActivity(intent);
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mServiceBound) {
+            unbindService(mServiceConnection);
+            mServiceBound = false;
+        }
+    }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MySocket.MyBinder myBinder = (MySocket.MyBinder) service;
+            mSocketService = myBinder.getService();
+            mServiceBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mServiceBound = false;
+        }
+    };
 
 }
 
