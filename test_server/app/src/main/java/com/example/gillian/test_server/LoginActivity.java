@@ -12,18 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-
-import io.socket.IOAcknowledge;
-import io.socket.IOCallback;
-import io.socket.SocketIO;
-import io.socket.SocketIOException;
-
-
 /**
  * A login screen that offers login via username.
  */

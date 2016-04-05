@@ -87,6 +87,9 @@ public class Connect_after extends Activity {
                         @Override
                         public void on(String event, IOAcknowledge ack, Object... args) {
                             System.out.println("Server triggered event '" + event + "'");
+                            if (event == "yourTurn") {
+                                System.out.println("your turn is coming bitch");
+                            }
                         }
                     }
             );
@@ -114,7 +117,7 @@ public class Connect_after extends Activity {
                         data.put("action", "playerBuyCage");
                         data.put("coordX", 5);
                         data.put("coordY", 5);
-                        data.put("turnPlayed", 1);
+                        data.put("playerId", mSocket.getSessionId());
                     }catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -130,7 +133,8 @@ public class Connect_after extends Activity {
                         data.put("action", "playerBuyDino");
                         data.put("coordX", 5);
                         data.put("coordY", 5);
-                        data.put("turnPlayed", 1);
+                        data.put("dinoType", "Velociraptor");
+                        data.put("playerId",mSocket.getSessionId());
                     }catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -146,7 +150,8 @@ public class Connect_after extends Activity {
                         data.put("action", "playerBuyBooth");
                         data.put("coordX", 5);
                         data.put("coordY", 5);
-                        data.put("turnPlayed", 1);
+                        data.put("boothType", "Spy");
+                        data.put("playerId",mSocket.getSessionId());
                     }catch (JSONException e) {
                         e.printStackTrace();
                     }
