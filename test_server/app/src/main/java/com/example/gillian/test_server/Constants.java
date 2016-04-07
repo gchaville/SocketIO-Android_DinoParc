@@ -15,6 +15,8 @@ public class Constants {
     public static final String EXTRA_NAME = "username";
     public static final String EXTRA_GAMEID = "gameid";
 
+    public static final int NOTIFICATION_ID = 1001;
+
     Constants() {}
     
 }

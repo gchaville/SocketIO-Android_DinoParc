@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.os.Binder;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +18,6 @@ import java.net.MalformedURLException;
 import io.socket.SocketIO;
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
-import io.socket.SocketIO;
 import io.socket.SocketIOException;
 
 
@@ -56,6 +56,10 @@ public class MySocket extends Service {
             mUsername = intent.getExtras().getString(Constants.EXTRA_NAME);
             mGameid = intent.getExtras().getString(Constants.EXTRA_GAMEID);
             Log.i(LOG_TAG, mIPaddress + " " + mUsername + " " + mGameid);
+
+            if(mSocket != null) {
+                mSocket.disconnect();
+            }
 
             try {
                     mSocket = new SocketIO(mIPaddress, new IOCallback() {
@@ -101,7 +105,15 @@ public class MySocket extends Service {
                         public void on(String event, IOAcknowledge ack, Object... args) {
                             //System.out.println("Server triggered event '" + event + "'");
                             if (event.equals(Constants.PLAYER_TURN)) {
-                                Log.i(LOG_TAG, "your turn is coming bitch");
+                                JSONObject data = (JSONObject)args[0];
+                                try {
+                                    if (data.getString("playerName").equals(mUsername)) {
+                                        Log.i(LOG_TAG, "your turn is coming bitch");
+                                        notifyPlayer();
+                                    }
+                                }catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     });
@@ -168,4 +180,9 @@ public class MySocket extends Service {
     };
 
 
+    private void notifyPlayer() {
+        Intent emitIntent = new Intent();
+        emitIntent.setAction(Constants.PLAYER_TURN);
+        sendBroadcast(emitIntent);
+    }
 }

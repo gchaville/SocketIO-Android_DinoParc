@@ -110,7 +110,7 @@ public class LoginActivity extends Activity {
         startService(serviceIntent);
         bindService(serviceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
 
-        Intent intent = new Intent(LoginActivity.this, Connect_after.class);
+        Intent intent = new Intent(LoginActivity.this, TurnScreen.class);
         intent.putExtras(infos);
         startActivity(intent);
 

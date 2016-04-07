@@ -30,6 +30,7 @@
     <string name="prompt_username">What\'s your nickname?</string>
 
     <string name="action_sign_in">Join</string>
+    <string name="action_turn">Ready?</string>
     <string name="action_connect">Connect</string>
     <string name="action_sign_in_short">Join</string>
 
@@ -37,6 +38,9 @@
     <string name="action_buyDino">Dino</string>
     <string name="action_buyBooth">Booth</string>
 
-    <string name="error_field_required">This field is required</string>
+    <string name="notification">DinoParc</string>
+    <string name="notification_title">It\'s your turn bitch !</string>
+    <string name="notification_desc">C\'est ton tour</string>
 
+    <string name="error_field_required">This field is required</string>
 </resources>

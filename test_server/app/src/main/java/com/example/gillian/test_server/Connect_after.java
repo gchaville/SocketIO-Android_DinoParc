@@ -1,6 +1,7 @@
 package com.example.gillian.test_server;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -9,17 +10,7 @@ import android.os.IBinder;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.TextView;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-
-import io.socket.IOAcknowledge;
-import io.socket.IOCallback;
-import io.socket.SocketIO;
-import io.socket.SocketIOException;
-
+import android.util.Log;
 
 public class Connect_after extends Activity {
 
@@ -35,6 +26,7 @@ public class Connect_after extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect_after);
 
+        Log.i("Connect_afta","onCreate");
         Intent intent = getIntent();
 
         if(intent != null) {
@@ -87,12 +79,30 @@ public class Connect_after extends Activity {
                     break;
             }
             sendBroadcast(emitIntent);
+            Bundle infos = new Bundle();
+            infos.putString(Constants.EXTRA_NAME, mUsername);
+            infos.putString(Constants.EXTRA_GAMEID, mGameid);
+
+            Intent intent = new Intent(Connect_after.this, TurnScreen.class);
+            intent.putExtras(infos);
+            startActivity(intent);
         }
     };
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("Connect_afta", "onStart");
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.cancel(0);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+        Log.i("Connect_afta", "onStop");
         if(mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
@@ -102,7 +112,7 @@ public class Connect_after extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        Log.i("Connect_afta", "onDestroy");
         //mSocket.disconnect();
     }
 
