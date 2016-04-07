@@ -83,4 +83,40 @@
         android:layout_above="@+id/num_visitors"
         android:layout_toEndOf="@+id/num_cash" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="10"
+        android:id="@+id/TurnMax"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="/"
+        android:id="@+id/slash"
+        android:layout_alignTop="@+id/TurnMax"
+        android:layout_toStartOf="@+id/TurnMax" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="10"
+        android:id="@+id/Turns"
+        android:layout_alignTop="@+id/slash"
+        android:layout_toStartOf="@+id/slash" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:id="@+id/dino_button"
+        android:layout_alignParentStart="false"
+        android:columnCount="4"
+        android:rowCount="1"></GridLayout>
+
 </RelativeLayout>

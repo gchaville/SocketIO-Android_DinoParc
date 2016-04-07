@@ -464,7 +464,7 @@ jQuery(function($){
                     case 'playerBuyDino':
                     {
                         switch (data.dinoType) {
-                            case 'Velociraptor':
+                            case 3:
                             {
                                 // Add 2 visitors and Sub 5 cash to the player's score
                                 $pCash.text(+$pCash.text() - 5);
@@ -472,7 +472,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 'Brontosaurus':
+                            case 4:
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 2);
@@ -480,7 +480,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 'Triceratops':
+                            case 5:
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 10);
@@ -488,7 +488,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 'Tyrannosaurus':
+                            case 2:
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 20);
@@ -697,10 +697,10 @@ jQuery(function($){
                     "<input id='inputCoordY' type='text' />" +
                     "</div>" +
                     "<label id='inputdinoType'>Type of Dinosaur :</label>" +
-                    "<input type='radio' id='inputVelo' name='dinoType' value='Velociraptor' checked> Velociraptor" +
-                    "<input type='radio' id='inputBront' name='dinoType' value='Brontosaurus'> Brontosaurus" +
-                    "<input type='radio' id='inputTric' name='dinoType' value='Triceratops'> Triceratop" +
-                    "<input type='radio' id='inputTyra' name='dinoType' value='Tyrannosaurus'> Tyrannosaurus" +
+                    "<input type='radio' id='inputVelo' name='dinoType' value=3 checked> Velociraptor" +
+                    "<input type='radio' id='inputBront' name='dinoType' value=4> Brontosaurus" +
+                    "<input type='radio' id='inputTric' name='dinoType' value=5> Triceratops" +
+                    "<input type='radio' id='inputTyra' name='dinoType' value=2> Tyrannosaurus" +
                     "<button id='btnBuy' value='dino'>BUY</button>" +
                     "</div>"));
             },
@@ -721,12 +721,12 @@ jQuery(function($){
                     "<input id='inputCoordY' type='text' />" +
                     "</div>" +
                     "<label id='inputboothType'>Type of Dinosaur :</label>" +
-                    "<input type='radio' id='inputRest' name='boothType' value='Restaurant' checked> Restaurant" +
-                    "<input type='radio' id='inputSecu' name='boothType' value='Security'> Security" +
-                    "<input type='radio' id='inputBath' name='boothType' value='Bathroom'> Bathroom" +
-                    "<input type='radio' id='inputCasi' name='boothType' value='Casino'> Casino" +
-                    "<input type='radio' id='inputSpy' name='boothType' value='Spy'> Spy" +
-                    "<input type='radio' id='inputPale' name='boothType' value='Paleontologist'> Paleontologist" +
+                    "<input type='radio' id='inputRest' name='boothType' value=6 checked> Restaurant" +
+                    "<input type='radio' id='inputSecu' name='boothType' value=7> Security" +
+                    "<input type='radio' id='inputBath' name='boothType' value=8> Bathroom" +
+                    "<input type='radio' id='inputCasi' name='boothType' value=9> Casino" +
+                    "<input type='radio' id='inputSpy' name='boothType' value=10> Spy" +
+                    "<input type='radio' id='inputPale' name='boothType' value=11> Paleontologist" +
                     "<button id='btnBuy' value='booth'>BUY</button>" +
                     "</div>"));
             },
@@ -773,11 +773,19 @@ jQuery(function($){
                         }
                         IO.socket.emit('playerAction',data);
 
+                        var type;
+                        switch (parseInt(data.dinoType)) {
+                            case 3: type = "Velociraptor"; break;
+                            case 4: type = "Brontosaurus"; break;
+                            case 5: type = "Triceratops"; break;
+                            case 2: type = "Tyrannosaurus"; break;
+                        }
+
                         var tile = '#tile_'+data.coordX+'_'+data.coordY;
                         $(tile).attr('class','dino');
-                        App.Player.dinos[data.dinoType].push(tile);
+                        App.Player.dinos[type].push(tile);
 
-                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + data.dinoType + " . He's got " + App.Player.dinos[data.dinoType].length + "</h3>"));
+                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + type + " . He's got " + App.Player.dinos[type].length + "</h3>"));
                         break;
                     case 'booth':
                         var data = {
@@ -791,11 +799,20 @@ jQuery(function($){
                         }
                         IO.socket.emit('playerAction',data);
 
+                        var type;
+                        switch(parseInt(data.boothType)) {
+                            case 6: type = "Restaurant"; break;
+                            case 7: type = "Security"; break;
+                            case 8: type = "Bathroom"; break;
+                            case 9: type = "Casino"; break;
+                            case 10: type = "Spy"; break;
+                            case 11: type = "Paleontologist"; break;
+                        }
                         var tile = '#tile_'+data.coordX+'_'+data.coordY;
                         $(tile).attr('class','booth');
-                        App.Player.booths[data.boothType].push(tile);
+                        App.Player.booths[type].push(tile);
 
-                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + data.boothType + " . He's got " + App.Player.booths[data.boothType].length + "</h3>"));
+                        $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + type + " . He's got " + App.Player.booths[type].length + "</h3>"));
                         break;
                 }
                 $('#inputBuy').remove();

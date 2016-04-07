@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class BoardManager {
         Tile [][] tuiles = new Tile[10][14];
 
-        BoardManager (GridLayout grid, Activity main) {
+        BoardManager (GridLayout grid, Activity main, int dim) {
                 int col = 10;
                 int row = 14;
                 grid.setColumnCount(col);
@@ -24,8 +24,8 @@ public class BoardManager {
                                         oImageView.setImageResource(R.drawable.tile);
                                         oImageView.setTag(tag);
                                         GridLayout.LayoutParams param =new GridLayout.LayoutParams();
-                                        param.height = 48;
-                                        param.width = 48;
+                                        param.height = dim;
+                                        param.width = dim;
                                         param.columnSpec = GridLayout.spec(x);
                                         param.rowSpec = GridLayout.spec(y);
                                         oImageView.setLayoutParams (param);
