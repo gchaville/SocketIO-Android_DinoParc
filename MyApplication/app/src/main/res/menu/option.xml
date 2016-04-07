@@ -13,9 +13,6 @@
             <item android:id="@+id/Ads"
                 android:title="Advertisment"  />
 
-            <item android:id="@+id/Dino"
-                android:title="Buy Dino"  />
-
             <item android:id="@+id/Booth"
                 android:title="Buy booth" />
 
