@@ -29,7 +29,7 @@ public class Tile {
 
     public type tuileType;
     View tile;
-    int col, row;
+    public int col, row;
 
     Tile (int i, int j, View v) {
         col = i;

@@ -172,7 +172,7 @@ public class Connect_after extends Activity {
             });
         }
         else if(items == R.id.button_buyDino) {
-            popUpMenu.setItems(R.array.items_booth, new DialogInterface.OnClickListener() {
+            popUpMenu.setItems(R.array.items_dino, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     switch(which) {
                         //--------------- DINOS ----------------

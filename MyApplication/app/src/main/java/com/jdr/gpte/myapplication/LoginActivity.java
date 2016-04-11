@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.Bundle;
@@ -42,6 +43,10 @@ public class LoginActivity extends Activity {
         mUsernameView = (EditText) findViewById(R.id.username_input);
         mIPaddressView = (EditText) findViewById(R.id.ipaddress_input);
         mGameidView = (EditText) findViewById(R.id.gameid_input);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.GAME_STARTED);
+        registerReceiver(mReceiver, filter);
 
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new OnClickListener() {
@@ -126,6 +131,11 @@ public class LoginActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mReceiver);
+        if(mServiceBound) {
+            unbindService(mServiceConnection);
+            mServiceBound = false;
+        }
+        stopService(new Intent(LoginActivity.this, MySocket.class));
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {

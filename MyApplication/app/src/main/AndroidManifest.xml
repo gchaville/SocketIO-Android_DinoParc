@@ -3,6 +3,7 @@
     package="com.jdr.gpte.myapplication">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,7 +11,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -22,8 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".TURN_SCREEN" />
         <activity android:name=".GameOver"></activity>
+        <service
+            android:name=".MySocket"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

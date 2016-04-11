@@ -63,10 +63,10 @@ public class TurnScreen extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i("TurnScreen", "onStop");
-        if(mServiceBound) {
+       /* if(mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
-        }
+        }*/
     }
 
     @Override
@@ -74,6 +74,11 @@ public class TurnScreen extends Activity {
         super.onDestroy();
         Log.i("TurnScreen", "onDestroy");
         unregisterReceiver(mReceiver);
+        if(mServiceBound) {
+            unbindService(mServiceConnection);
+            mServiceBound = false;
+        }
+        stopService(new Intent(TurnScreen.this, MySocket.class));
     }
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {

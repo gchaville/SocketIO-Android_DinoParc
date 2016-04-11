@@ -72,10 +72,10 @@ public class TURN_SCREEN extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.i("TurnScreen", "onStop");
-        if(mServiceBound) {
+        /*if(mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
-        }
+        }*/
     }
 
     @Override
@@ -83,6 +83,11 @@ public class TURN_SCREEN extends AppCompatActivity {
         super.onDestroy();
         Log.i("TurnScreen", "onDestroy");
         unregisterReceiver(mReceiver);
+        if(mServiceBound) {
+            unbindService(mServiceConnection);
+            mServiceBound = false;
+        }
+        stopService(new Intent(TURN_SCREEN.this, MySocket.class));
     }
 
     private void attemptTurn() {

@@ -35,13 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private String mGameid;
 
     class views{
-        int x ,y;
         View Button;
         Tile tuile_def = new Tile();
         Boolean onBoard = true;
         views(int i, int j, View b){
-            x = i;
-            y = j;
+            tuile_def.col = i;
+            tuile_def.row = j;
             Button = b;
         }
     };
@@ -405,17 +404,17 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout rel = (RelativeLayout) findViewById(R.id.frame);
         Boolean available = true;
         for(int i =0 ; i<arrow.size();i++) {
-            arrow.get(i).x+=x;
-            arrow.get(i).y+=y;
+            arrow.get(i).tuile_def.col+=x;
+            arrow.get(i).tuile_def.row+=y;
             GridLayout grid = (GridLayout) findViewById(R.id.grid);
             GridLayout.LayoutParams param =new GridLayout.LayoutParams();
             arrow.get(i).onBoard = false;
             grid.removeViewInLayout(arrow.get(i).Button);
-            if (arrow.get(i).x<10 && arrow.get(i).x>=0 && (arrow.get(i).x>2 || arrow.get(i).y>1) && arrow.get(i).y<14 && arrow.get(i).y>=0) {
+            if (arrow.get(i).tuile_def.col<10 && arrow.get(i).tuile_def.col>=0 && (arrow.get(i).tuile_def.col>2 || arrow.get(i).tuile_def.row>1) && arrow.get(i).tuile_def.row<14 && arrow.get(i).tuile_def.row>=0) {
                 param.height = dim;
                 param.width = dim;
-                param.columnSpec = GridLayout.spec(arrow.get(i).x);
-                param.rowSpec = GridLayout.spec(arrow.get(i).y);
+                param.columnSpec = GridLayout.spec(arrow.get(i).tuile_def.col);
+                param.rowSpec = GridLayout.spec(arrow.get(i).tuile_def.row);
                 arrow.get(i).Button.setLayoutParams(param);
                 grid.addView(arrow.get(i).Button);
                 arrow.get(i).onBoard = true;
@@ -424,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i =0 ; i<achat;i++) {
             if (arrow.get(i).onBoard) {
                 if (available) {
-                    if (board.tuiles[arrow.get(i).x][arrow.get(i).y].isAvailable && player.money>=price) {
+                    if (board.tuiles[arrow.get(i).tuile_def.col][arrow.get(i).tuile_def.row].isAvailable && player.money>=price) {
                         rel.removeViewInLayout(validate);
                         rel.addView(validate);
                     } else {
@@ -437,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = achat; i< arrow.size(); i++) {
             if (arrow.get(i).onBoard) {
                 if (available) {
-                    if (board.tuiles[arrow.get(i).x][arrow.get(i).y].tuileType.value == 0 || board.tuiles[arrow.get(i).x][arrow.get(i).y].tuileType == arrow.get(0).tuile_def.tuileType && player.money>=price) {
+                    if (board.tuiles[arrow.get(i).tuile_def.col][arrow.get(i).tuile_def.row].tuileType.value == 0 || board.tuiles[arrow.get(i).tuile_def.col][arrow.get(i).tuile_def.row].tuileType == arrow.get(0).tuile_def.tuileType && player.money>=price) {
                         rel.removeViewInLayout(validate);
                         rel.addView(validate);
                     } else {
@@ -457,12 +456,12 @@ public class MainActivity extends AppCompatActivity {
             grid.removeViewInLayout(arrow.get(i).Button);
         }
         for(int i =  0; i<achat ;i++) {
-            board.tuiles[arrow.get(i).x][arrow.get(i).y].isAvailable = false;
-            board.tuiles[arrow.get(i).x][arrow.get(i).y].tuileType = arrow.get(i).tuile_def.tuileType;
+            board.tuiles[arrow.get(i).tuile_def.col][arrow.get(i).tuile_def.row].isAvailable = false;
+            board.tuiles[arrow.get(i).tuile_def.col][arrow.get(i).tuile_def.row].tuileType = arrow.get(i).tuile_def.tuileType;
         }
         if(arrow.get(0).tuile_def.tuileType == Tile.type.cage) {
-            final int x = arrow.get(0).x+1;
-            final int y = arrow.get(0).y+1;
+            final int x = arrow.get(0).tuile_def.col+1;
+            final int y = arrow.get(0).tuile_def.row+1;
             View button = arrow.get(0).Button;
             final MediaPlayer mpTrex = MediaPlayer.create(this, R.raw.trex);
             MediaPlayer Velo = MediaPlayer.create(this, R.raw.velociraptor);
@@ -486,6 +485,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             dinosaur.add(dino);
                             price = 10;
+                            emitAction(88, t);
                             endTurn();
                         }
                     });
@@ -504,6 +504,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             dinosaur.add(dino);
                             price = 2;
+                            emitAction(88, t);
                             endTurn();
                         }
                     });
@@ -522,6 +523,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             dinosaur.add(dino);
                             price = 5;
+                            emitAction(88, t);
                             endTurn();
                         }
                     });
@@ -541,6 +543,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             dinosaur.add(dino);
                             price = 25;
+                            emitAction(88, t);
                             endTurn();
                         }
                     });
@@ -595,7 +598,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+            emitAction(R.drawable.cage, arrow.get(0).tuile_def);
         }
+        else
+            emitAction(R.drawable.booth, arrow.get(0).tuile_def);
+
         arrow.clear();
         endTurn();
     }
@@ -626,7 +633,12 @@ public class MainActivity extends AppCompatActivity {
         else {
             turn++;
             ((TextView)findViewById(R.id.Turns)).setText(turn + "");
-            Intent intent = new Intent(getApplicationContext(), TURN_SCREEN.class);
+            Bundle infos = new Bundle();
+            infos.putString(Constants.EXTRA_NAME, mUsername);
+            infos.putString(Constants.EXTRA_GAMEID, mGameid);
+
+            Intent intent = new Intent(MainActivity.this, TURN_SCREEN.class);
+            intent.putExtras(infos);
             startActivity(intent);
             incomePhase();
         }
@@ -664,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void emitAction(int option, views tile) {
+    void emitAction(int option, Tile tile) {
         Intent emitIntent = new Intent();
         emitIntent.setAction(Constants.PLAYER_ACTION);
 
@@ -673,26 +685,26 @@ public class MainActivity extends AppCompatActivity {
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
                 emitIntent.putExtra("action", "playerBuyCage");
-                emitIntent.putExtra("coordX", tile.x);
-                emitIntent.putExtra("coordY", tile.y);
+                emitIntent.putExtra("coordX", tile.col);
+                emitIntent.putExtra("coordY", tile.row);
                 break;
 
             case R.drawable.booth:
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
                 emitIntent.putExtra("action", "playerBuyBooth");
-                emitIntent.putExtra("boothType", tile.tuile_def.tuileType.value);
-                emitIntent.putExtra("coordX", tile.x);
-                emitIntent.putExtra("coordY", tile.y);
+                emitIntent.putExtra("boothType", tile.tuileType.value);
+                emitIntent.putExtra("coordX", tile.col);
+                emitIntent.putExtra("coordY", tile.row);
                 break;
 
             case 88:
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
                 emitIntent.putExtra("action", "playerBuyDino");
-                emitIntent.putExtra("dinoType", tile.tuile_def.tuileType.value);
-                emitIntent.putExtra("coordX", tile.x);
-                emitIntent.putExtra("coordY", tile.y);
+                emitIntent.putExtra("dinoType", tile.tuileType.value);
+                emitIntent.putExtra("coordX", tile.col);
+                emitIntent.putExtra("coordY", tile.row);
                 break;
         }
         sendBroadcast(emitIntent);
