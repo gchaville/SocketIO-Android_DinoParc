@@ -1,6 +1,8 @@
 package com.jdr.gpte.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -50,11 +53,6 @@ public class LoginActivity extends Activity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
     /**
      * Attempts to sign in the account specified by the login form.
      * If there are form errors (invalid username, missing fields, etc.), the
@@ -96,7 +94,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        mIPaddress = "http://"+ipaddress+"/";
+        mIPaddress = "http://" + ipaddress + "/";
         mUsername = username;
         mGameid = gameid;
 
@@ -110,20 +108,41 @@ public class LoginActivity extends Activity {
         startService(serviceIntent);
         bindService(serviceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
 
-        Intent intent = new Intent(LoginActivity.this, TURN_SCREEN.class);
-        intent.putExtras(infos);
-        startActivity(intent);
+        waitPopUp();
+
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(mServiceBound) {
+        if (mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.GAME_STARTED)) {
+                Log.i("LoginAct", "in BroadcastReceiver : game started " + mUsername + " " + mGameid);
+                Bundle infos = new Bundle();
+                infos.putString(Constants.EXTRA_NAME, mUsername);
+                infos.putString(Constants.EXTRA_GAMEID, mGameid);
+
+                Intent Turnintent = new Intent(LoginActivity.this, TURN_SCREEN.class);
+                Turnintent.putExtras(infos);
+                startActivity(Turnintent);
+            }
+        }
+    };
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -139,7 +158,10 @@ public class LoginActivity extends Activity {
         }
     };
 
+    private void waitPopUp() {
+        AlertDialog.Builder popUpMenu = new AlertDialog.Builder(this);
+        popUpMenu.setTitle("Waiting");
+        popUpMenu.setMessage("Joined Game " + mGameid + ".\n Please wait for game to begin.");
+        popUpMenu.create().show();
+    }
 }
-
-
-

@@ -57,11 +57,11 @@ public class MySocket extends Service {
             mGameid = intent.getExtras().getString(Constants.EXTRA_GAMEID);
             Log.i(LOG_TAG, mIPaddress + " " + mUsername + " " + mGameid);
 
-            if(mSocket != null) {
+            if (mSocket != null) {
                 mSocket.disconnect();
             }
-
-            try {
+            else {
+                try {
                     mSocket = new SocketIO(mIPaddress, new IOCallback() {
                         @Override
                         public void onMessage(JSONObject json, IOAcknowledge ack) {
@@ -81,6 +81,7 @@ public class MySocket extends Service {
                         public void onError(SocketIOException socketIOException) {
                             System.out.println("an Error occured");
                             socketIOException.printStackTrace();
+                            stopSelf();
                         }
 
                         @Override
@@ -105,23 +106,33 @@ public class MySocket extends Service {
                         public void on(String event, IOAcknowledge ack, Object... args) {
                             //System.out.println("Server triggered event '" + event + "'");
                             if (event.equals(Constants.PLAYER_TURN)) {
-                                JSONObject data = (JSONObject)args[0];
+                                JSONObject data = (JSONObject) args[0];
                                 try {
                                     if (data.getString("playerName").equals(mUsername)) {
                                         Log.i(LOG_TAG, "your turn is coming bitch");
-                                        notifyPlayer();
+                                        notifyPlayer(Constants.PLAYER_TURN);
                                     }
-                                }catch (JSONException e) {
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (event.equals(Constants.GAME_STARTED)) {
+                                JSONObject data = (JSONObject) args[0];
+                                try {
+                                    if (data.getString("gameId").equals(mGameid)) {
+                                        Log.i(LOG_TAG, "game started");
+                                        notifyPlayer(Constants.GAME_STARTED);
+                                    }
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         }
                     });
-                }
-                catch (MalformedURLException e1) {
+                } catch (MalformedURLException e1) {
                     e1.printStackTrace();
                 }
             }
+        }
         return mBinder;
     }
 
@@ -143,7 +154,7 @@ public class MySocket extends Service {
         mSocket.disconnect();
         unregisterReceiver(mReceiver);
         Log.i(LOG_TAG, "in onDestroy");
-
+        stopSelf();
     }
 
     public class MyBinder extends Binder {
@@ -180,9 +191,9 @@ public class MySocket extends Service {
     };
 
 
-    private void notifyPlayer() {
+    private void notifyPlayer(String notif) {
         Intent emitIntent = new Intent();
-        emitIntent.setAction(Constants.PLAYER_TURN);
+        emitIntent.setAction(notif);
         sendBroadcast(emitIntent);
     }
 }

@@ -1,6 +1,7 @@
 package com.jdr.gpte.myapplication;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -169,7 +170,8 @@ public class TURN_SCREEN extends AppCompatActivity {
                 .setContentTitle("DinoParc")
                 .setContentText("It's your turn !")
                 .setSmallIcon(R.drawable.tyrannosaure)
-                .setContentIntent(pIntent).build();
+                .setContentIntent(pIntent)
+                .setSound(Uri.parse("android.resource://com.jdr.gpte.myapplication/" + R.raw.bell)).build();
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

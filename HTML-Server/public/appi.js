@@ -360,7 +360,7 @@ jQuery(function($){
 
                 // Begin the on-screen countdown timer
                 var $secondsLeft = $('#hostWord');
-                App.countDown($secondsLeft, 5, function () {
+                App.countDown($secondsLeft, 0, function () {
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
 

@@ -108,7 +108,8 @@ function hostStartGame(gameId) {
         gameId: gameId
     };
     io.sockets.in(data.gameId).emit('newBoard', data);
-    io.sockets.in(data.gameId).emit('newTurn', data);
+    setTimeout(function(){io.sockets.in(data.gameId).emit('newTurn', data);}, 2000);
+    
 };
 
 function hostCheckAction (data) {

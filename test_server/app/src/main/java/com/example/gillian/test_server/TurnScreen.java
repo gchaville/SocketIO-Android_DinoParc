@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -151,7 +152,8 @@ public class TurnScreen extends Activity {
                 .setContentTitle("DinoParc")
                 .setContentText("It's your turn !")
                 .setSmallIcon(R.drawable.notification)
-                .setContentIntent(pIntent).build();
+                .setContentIntent(pIntent)
+                .setSound(Uri.parse("android.resource://com.example.gillian.test_server/" + R.raw.bell)).build();
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

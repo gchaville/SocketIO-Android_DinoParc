@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/item_rest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurant">
+        android:onClick="onRadioButtonClicked"/>
+    </RadioButton>
+    <RadioButton
+        android:id="@+id/item_secu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Security">
+        android:onClick="onRadioButtonClicked"/>
+    </RadioButton>
+    <RadioButton
+        android:id="@+id/item_bath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bathroom">
+        android:onClick="onRadioButtonClicked"/>
+    </RadioButton>
+    <RadioButton
+        android:id="@+id/item_casi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Casino">
+        android:onClick="onRadioButtonClicked"/>
+    </RadioButton>
+    <RadioButton
+        android:id="@+id/item_spy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spy">
+        android:onClick="onRadioButtonClicked"/>
+    </RadioButton>
+    <RadioButton
+        android:id="@+id/item_pale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paleontologist">
+        android:onClick="onRadioButtonClicked"/>
+    </RadioButton>
+
+</LinearLayout>
