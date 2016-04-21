@@ -113,7 +113,14 @@ function hostStartGame(gameId) {
 };
 
 function hostCheckAction (data) {
-    console.log(data.playerName, data.action);
+
+    if(data.action === 'playerBuyDino')
+        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]", data.dinoType);
+    else if(data.action === 'playerBuyBooth')
+        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]", data.boothType);
+    else
+        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]");
+
     io.sockets.in(data.gameId).emit('hostCheckAction',data);
 }
 /**

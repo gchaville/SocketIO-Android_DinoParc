@@ -33,6 +33,8 @@ public class TURN_SCREEN extends AppCompatActivity {
     private String mUsername;
     private String mGameid;
 
+    private boolean isNewTurn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +46,10 @@ public class TURN_SCREEN extends AppCompatActivity {
         if(intent != null) {
             mUsername = intent.getExtras().getString(Constants.EXTRA_NAME);
             mGameid = intent.getExtras().getString(Constants.EXTRA_GAMEID);
+            isNewTurn = intent.getExtras().getBoolean(Constants.EXTRA_NEWTURN);
         }
 
-        Intent serviceIntent = new Intent(TURN_SCREEN.this, MySocket.class);
+        Intent serviceIntent = new Intent(this, MySocket.class);
         bindService(serviceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
 
         IntentFilter filter = new IntentFilter();
@@ -54,12 +57,20 @@ public class TURN_SCREEN extends AppCompatActivity {
 
         registerReceiver(mReceiver, filter);
 
+        //if(isNewTurn)
+           // createButtonReady();
     }
 
     @Override
     protected  void onStart() {
         super.onStart();
         Log.i("TurnScreen", "onStart");
+    }
+
+    @Override
+    protected  void onPause() {
+        super.onPause();
+        Log.i("TurnScreen", "onPause");
     }
 
     @Override
@@ -72,10 +83,10 @@ public class TURN_SCREEN extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.i("TurnScreen", "onStop");
-        /*if(mServiceBound) {
+        if(mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
-        }*/
+        }
     }
 
     @Override
@@ -83,21 +94,6 @@ public class TURN_SCREEN extends AppCompatActivity {
         super.onDestroy();
         Log.i("TurnScreen", "onDestroy");
         unregisterReceiver(mReceiver);
-        if(mServiceBound) {
-            unbindService(mServiceConnection);
-            mServiceBound = false;
-        }
-        stopService(new Intent(TURN_SCREEN.this, MySocket.class));
-    }
-
-    private void attemptTurn() {
-        Bundle infos = new Bundle();
-        infos.putString(Constants.EXTRA_NAME, mUsername);
-        infos.putString(Constants.EXTRA_GAMEID, mGameid);
-
-        Intent intent = new Intent(TURN_SCREEN.this, MainActivity.class);
-        intent.putExtras(infos);
-        startActivity(intent);
     }
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -121,7 +117,8 @@ public class TURN_SCREEN extends AppCompatActivity {
             if(intent.getAction().equals(Constants.PLAYER_TURN)) {
                 Log.i("TurnScreen", "turn is coming 1");
                 createButtonReady();
-                createNotification(context);
+                createNotification();
+                //isNewTurn = true;
             }
         }
     };
@@ -145,10 +142,8 @@ public class TURN_SCREEN extends AppCompatActivity {
                 infos.putString(Constants.EXTRA_NAME, mUsername);
                 infos.putString(Constants.EXTRA_GAMEID, mGameid);
 
-                Intent intent = new Intent(TURN_SCREEN.this, MainActivity.class);
-                intent.putExtras(infos);
-                startActivity(intent);
                 lm.removeView(findViewById(R.id.turn_ready));
+                finish();
             }
         });
 
@@ -156,22 +151,25 @@ public class TURN_SCREEN extends AppCompatActivity {
         lm.addView(btn);
     }
 
-    private final void createNotification(Context context) {
+    private final void createNotification() {
         // prepare intent which is triggered if the
         // notification is selected
 
         Bundle infos = new Bundle();
         infos.putString(Constants.EXTRA_NAME, mUsername);
         infos.putString(Constants.EXTRA_GAMEID, mGameid);
+        //infos.putBoolean(Constants.EXTRA_NEWTURN, true);
 
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(this, TURN_SCREEN.class);
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.putExtras(infos);
         // use System.currentTimeMillis() to have a unique ID for the pending intent
-        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         // build notification
         // the addAction re-use the same intent to keep the example short
-        Notification n  = new Notification.Builder(context)
+        Notification n  = new Notification.Builder(this)
                 .setContentTitle("DinoParc")
                 .setContentText("It's your turn !")
                 .setSmallIcon(R.drawable.tyrannosaure)

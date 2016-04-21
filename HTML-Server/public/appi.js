@@ -364,6 +364,8 @@ jQuery(function($){
                     IO.socket.emit('hostCountdownFinished', App.gameId);
                 });
 
+                App.Host.loadBoard(App.Host.numPlayersMax);
+
                 // Display the players' names on screen
                 //console.log("Player1 name : " + App.Host.players[0].playerName + " " + App.Host.players[0].mySocketId);
                 $('#player1Score')
@@ -373,7 +375,7 @@ jQuery(function($){
                 $('#player1Score').find('.visitors').attr('id',App.Host.players[0].mySocketId);
                 $('#boards').find('.board1').attr('id',App.Host.players[0].mySocketId);
 
-                if (App.Host.numPlayersMax == 2) {
+                if (App.Host.numPlayersMax >= 2) {
                     //console.log("Player2 name : " + App.Host.players[1].playerName + " " + App.Host.players[1].mySocketId);
                     $('#player2Score')
                         .find('.playerName')
@@ -387,7 +389,7 @@ jQuery(function($){
                     $('#player2Score').remove();
                 }
 
-                if (App.Host.numPlayersMax == 3) {
+                if (App.Host.numPlayersMax >= 3) {
                     //console.log("Player3 name : " + App.Host.players[2].playerName +" " + App.Host.players[2].mySocketId);
                     $('#player3Score')
                         .find('.playerName')
@@ -401,7 +403,7 @@ jQuery(function($){
                     $('#player3Score').remove();
                 }
 
-                if (App.Host.numPlayersMax == 4) {
+                if (App.Host.numPlayersMax >= 4) {
                     //console.log("Player4 name : " + App.Host.players[3].playerName + " " + App.Host.players[3].mySocketId);
                     $('#player4Score')
                         .find('.playerName')
@@ -414,8 +416,96 @@ jQuery(function($){
                     $('.board4').remove();
                     $('#player4Score').remove();
                 };
+            },
 
+            loadBoard : function(nbPlayers) {
+                for (var i = 1; i <= nbPlayers; i++) {
+                    var str = "<table class='board" + i + "'>";
 
+                    switch (i) {
+                        case 1:
+                            str += ("<tr>" +
+                            "<th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th> <th>8</th>" +
+                            "<th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th> <th>15</th>" +
+                            "</tr>");
+
+                            for (var y = 11; y >= 1; y--) {
+                                str += ("<tr>");
+                                for (var x = 1; x <= 15; x++) {
+                                    if (x > 3 || y > 2) {
+                                        str += ("<td class='tile' id='tile_" + x + "_" + y + "'></td>");
+                                    } else {
+                                        str += ("<td class='ntile' id='tile_" + x + "_" + y + "'></td>");
+                                    }
+                                }
+                                str += ("<th>" + y + "</th>" +
+                                "</tr>");
+                            }
+                            break;
+
+                        case 2:
+                            str += ("<tr>" +
+                            "<th></th> <th>15</th> <th>14</th> <th>13</th> <th>12</th> <th>11</th> <th>10</th> <th>9</th>" +
+                            "<th>8</th> <th>7</th> <th>6</th> <th>5</th> <th>4</th> <th>3</th> <th>2</th> <th>1</th>" +
+                            "</tr>");
+
+                            for (var y = 11; y >= 1; y--) {
+                                str += ("<tr>" +
+                                "<th>" + y + "</th>");
+                                for (var x = 15; x >= 1; x--) {
+                                    if (x > 3 || y > 2) {
+                                        str += ("<td class='tile' id='tile_" + x + "_" + y + "'></td>");
+                                    } else {
+                                        str += ("<td class='ntile' id='tile_" + x + "_" + y + "'></td>");
+                                    }
+                                }
+                                str += ("</tr>");
+                            }
+                            break;
+
+                        case 3:
+                            for (var y = 1; y <= 11; y++) {
+                                str += ("<tr>" +
+                                "<th>" + y + "</th>");
+                                for (var x = 15; x >= 1; x--) {
+                                    if (x > 3 || y > 2) {
+                                        str += ("<td class='tile' id='tile_" + x + "_" + y + "'></td>");
+                                    } else {
+                                        str += ("<td class='ntile' id='tile_" + x + "_" + y + "'></td>");
+                                    }
+                                }
+                                str += ("</tr>");
+                            }
+
+                            str += ("<tr>" +
+                            "<th></th> <th>15</th> <th>14</th> <th>13</th> <th>12</th> <th>11</th> <th>10</th> <th>9</th>" +
+                            "<th>8</th> <th>7</th> <th>6</th> <th>5</th> <th>4</th> <th>3</th> <th>2</th> <th>1</th>" +
+                            "</tr>");
+                            break;
+
+                        case 4:
+
+                            for (var y = 1; y <= 11; y++) {
+                                str += ("<tr>");
+                                for (var x = 1; x <= 15; x++) {
+                                    if (x > 3 || y > 2) {
+                                        str += ("<td class='tile' id='tile_" + x + "_" + y + "'></td>");
+                                    } else {
+                                        str += ("<td class='ntile' id='tile_" + x + "_" + y + "'></td>");
+                                    }
+                                }
+                                str += ("<th>" + y + "</th>" +
+                                "</tr>");
+                            }
+
+                            str += ("<tr>" +
+                            "<th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th> <th>8</th>" +
+                            "<th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th> <th>15</th>" +
+                            "</tr>");
+                            break;
+                    }
+                    $('#boards').append(str);
+                }
             },
 
             newTurn : function() {
@@ -464,7 +554,7 @@ jQuery(function($){
                     case 'playerBuyDino':
                     {
                         switch (data.dinoType) {
-                            case 3:
+                            case '3':
                             {
                                 // Add 2 visitors and Sub 5 cash to the player's score
                                 $pCash.text(+$pCash.text() - 5);
@@ -472,7 +562,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 4:
+                            case '4':
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 2);
@@ -480,7 +570,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 5:
+                            case '5':
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 10);
@@ -488,7 +578,7 @@ jQuery(function($){
 
                                 // Set player board on host and player page
                             } break;
-                            case 2:
+                            case '2':
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 20);
@@ -509,7 +599,13 @@ jQuery(function($){
                         //switch(data.action.type) {}
                         var tile = '#tile_'+data.coordX+'_'+data.coordY;
                         $pBoard.find(tile).attr('class','booth');
-                    }
+
+                    } break;
+
+                    case 'playerMakeAds':
+                    {
+                        $pCash.text(+$pCash.text() + (+$pVisitors.text()));
+                    } break;
 
                 }
                 // Advance the round
@@ -607,7 +703,7 @@ jQuery(function($){
              */
             myName: '',
 
-            cash: 10,
+            cash: 15,
 
             visitors: 0,
 
@@ -867,76 +963,28 @@ jQuery(function($){
              */
             newBoard : function() {
                 // Create an board hard coded
-                var $str = $(
-                    "<table id='board'>" +
-                    "<tr>" +
-                    "<th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th>" +
-                    "<th>8</th> <th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_10_1'></td> <td class='tile' id='tile_10_2'></td> <td class='tile' id='tile_10_3'></td> <td class='tile' id='tile_10_4'></td>" +
-                    "<td class='tile' id='tile_10_5'></td> <td class='tile' id='tile_10_6'></td> <td class='tile' id='tile_10_7'></td> <td class='tile' id='tile_10_8'></td>" +
-                    "<td class='tile' id='tile_10_9'></td> <td class='tile' id='tile_10_10'></td> <td class='tile' id='tile_10_11'></td> <td class='tile' id='tile_10_12'></td>" +
-                    "<td class='tile' id='tile_10_13'></td> <td class='tile' id='tile_10_14'></td> <th>10</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_9_1'></td> <td class='tile' id='tile_9_2'></td> <td class='tile' id='tile_9_3'></td> <td class='tile' id='tile_9_4'></td>" +
-                    "<td class='tile' id='tile_9_5'></td> <td class='tile' id='tile_9_6'></td> <td class='tile' id='tile_9_7'></td> <td class='tile' id='tile_9_8'></td>" +
-                    "<td class='tile' id='tile_9_9'></td> <td class='tile' id='tile_9_10'></td> <td class='tile' id='tile_9_11'></td> <td class='tile' id='tile_9_12'></td>" +
-                    "<td class='tile' id='tile_9_13'></td> <td class='tile' id='tile_9_14'></td> <th>9</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_8_1'></td> <td class='tile' id='tile_8_2'></td> <td class='tile' id='tile_8_3'></td> <td class='tile' id='tile_8_4'></td>" +
-                    "<td class='tile' id='tile_8_5'></td> <td class='tile' id='tile_8_6'></td> <td class='tile' id='tile_8_7'></td> <td class='tile' id='tile_8_8'></td>" +
-                    "<td class='tile' id='tile_8_9'></td> <td class='tile' id='tile_8_10'></td> <td class='tile' id='tile_8_11'></td> <td class='tile' id='tile_8_12'></td>" +
-                    "<td class='tile' id='tile_8_13'></td> <td class='tile' id='tile_8_14'></td> <th>8</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_7_1'></td> <td class='tile' id='tile_7_2'></td> <td class='tile' id='tile_7_3'></td> <td class='tile' id='tile_7_4'></td>" +
-                    "<td class='tile' id='tile_7_5'></td> <td class='tile' id='tile_7_6'></td> <td class='tile' id='tile_7_7'></td> <td class='tile' id='tile_7_8'></td>" +
-                    "<td class='tile' id='tile_7_9'></td> <td class='tile' id='tile_7_10'></td> <td class='tile' id='tile_7_11'></td> <td class='tile' id='tile_7_12'></td>" +
-                    "<td class='tile' id='tile_7_13'></td> <td class='tile' id='tile_7_14'></td> <th>7</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_6_1'></td> <td class='tile' id='tile_6_2'></td> <td class='tile' id='tile_6_3'></td> <td class='tile' id='tile_6_4'></td>" +
-                    "<td class='tile' id='tile_6_5'></td> <td class='tile' id='tile_6_6'></td> <td class='tile' id='tile_6_7'></td> <td class='tile' id='tile_6_8'></td>" +
-                    "<td class='tile' id='tile_6_9'></td> <td class='tile' id='tile_6_10'></td> <td class='tile' id='tile_6_11'></td> <td class='tile' id='tile_6_12'></td>" +
-                    "<td class='tile' id='tile_6_13'></td> <td class='tile' id='tile_6_14'></td> <th>6</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_5_1'></td> <td class='tile' id='tile_5_2'></td> <td class='tile' id='tile_5_3'></td> <td class='tile' id='tile_5_4'></td>" +
-                    "<td class='tile' id='tile_5_5'></td> <td class='tile' id='tile_5_6'></td> <td class='tile' id='tile_5_7'></td> <td class='tile' id='tile_5_8'></td>" +
-                    "<td class='tile' id='tile_5_9'></td> <td class='tile' id='tile_5_10'></td> <td class='tile' id='tile_5_11'></td> <td class='tile' id='tile_5_12'></td>" +
-                    "<td class='tile' id='tile_5_13'></td> <td class='tile' id='tile_5_14'></td> <th>5</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_4_1'></td> <td class='tile' id='tile_4_2'></td> <td class='tile' id='tile_4_3'></td> <td class='tile' id='tile_4_4'></td>" +
-                    "<td class='tile' id='tile_4_5'></td> <td class='tile' id='tile_4_6'></td> <td class='tile' id='tile_4_7'></td> <td class='tile' id='tile_4_8'></td>" +
-                    "<td class='tile' id='tile_4_9'></td> <td class='tile' id='tile_4_10'></td> <td class='tile' id='tile_4_11'></td> <td class='tile' id='tile_4_12'></td>" +
-                    "<td class='tile' id='tile_4_13'></td> <td class='tile' id='tile_4_14'></td> <th>4</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='tile' id='tile_3_1'></td> <td class='tile' id='tile_3_2'></td> <td class='tile' id='tile_3_3'></td> <td class='tile' id='tile_3_4'></td>" +
-                    "<td class='tile' id='tile_3_5'></td> <td class='tile' id='tile_3_6'></td> <td class='tile' id='tile_3_7'></td> <td class='tile' id='tile_3_8'></td>" +
-                    "<td class='tile' id='tile_3_9'></td> <td class='tile' id='tile_3_10'></td> <td class='tile' id='tile_3_11'></td> <td class='tile' id='tile_3_12'></td>" +
-                    "<td class='tile' id='tile_3_13'></td> <td class='tile' id='tile_3_14'></td> <th>3</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='ntile' id='tile_2_1'></td> <td class='ntile' id='tile_2_2'></td> <td class='ntile' id='tile_2_3'></td> <td class='tile' id='tile_2_4'></td>" +
-                    "<td class='tile' id='tile_2_5'></td> <td class='tile' id='tile_2_6'></td> <td class='tile' id='tile_2_7'></td> <td class='tile' id='tile_2_8'></td>" +
-                    "<td class='tile' id='tile_2_9'></td> <td class='tile' id='tile_2_10'></td> <td class='tile' id='tile_2_11'></td> <td class='tile' id='tile_2_12'></td>" +
-                    "<td class='tile' id='tile_2_13'></td> <td class='tile' id='tile_2_14'></td> <th>2</th>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td class='ntile' id='tile_1_1'></td> <td class='ntile' id='tile_1_2'></td> <td class='ntile' id='tile_1_3'></td> <td class='tile' id='tile_1_4'></td>" +
-                    "<td class='tile' id='tile_1_5'></td> <td class='tile' id='tile_1_6'></td> <td class='tile' id='tile_1_7'></td> <td class='tile' id='tile_1_8'></td>" +
-                    "<td class='tile' id='tile_1_9'></td> <td class='tile' id='tile_1_10'></td> <td class='tile' id='tile_1_11'></td> <td class='tile' id='tile_1_12'></td>" +
-                    "<td class='tile' id='tile_1_13'></td> <td class='tile' id='tile_1_14'></td> <th>1</th>" +
-                    "</tr>" +
-                    "</table>");
+                var str = "<table id='board'>";
+
+                str += ("<tr>" +
+                "<th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th> <th>8</th>" +
+                "<th>9</th> <th>10</th> <th>11</th> <th>12</th> <th>13</th> <th>14</th> <th>15</th>" +
+                "</tr>");
+
+                for(var y = 11; y >= 1; y--) {
+                    str += ("<tr>");
+                    for (var x = 1; x <= 15; x++) {
+                        if (x > 3 || y > 2) {
+                            str += ("<td class='tile' id='tile_" + x + "_" + y + "'></td>");
+                        } else {
+                            str += ("<td class='ntile' id='tile_" + x + "_" + y + "'></td>");
+                        }
+                    }
+                    str += ("<th>" + y + "</th>" +
+                    "</tr>");
+                }
 
                 // Insert the list onto the screen.
-                $('#gameArea').html($str);
+                $('#gameArea').html(str);
             },
 
             yourTurn: function() {

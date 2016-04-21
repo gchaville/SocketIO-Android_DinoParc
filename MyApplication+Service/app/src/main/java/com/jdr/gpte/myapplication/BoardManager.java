@@ -9,16 +9,16 @@ import android.widget.TextView;
  * Created by samue on 2016-03-22.
  */
 public class BoardManager {
-        Tile [][] tuiles = new Tile[10][14];
+        Tile [][] tuiles = new Tile[11][15];
 
         BoardManager (GridLayout grid, Activity main, int dim) {
-                int col = 10;
-                int row = 14;
+                int col = 11;
+                int row = 15;
                 grid.setColumnCount(col);
                 grid.setRowCount(row);
                 for (int x =0;x<col;x++) {
                         for (int y =0;y<row;y++) {
-                                if(y>1 || x>2) {
+                                if(y>2 || x>1) {
                                         String tag = "tile_"+x+"_"+y;
                                         ImageView oImageView = new ImageView(main);
                                         oImageView.setImageResource(R.drawable.tile);

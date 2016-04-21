@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_ipaddress"
-            android:inputType="textPhonetic"
-            android:maxLength="30"
+            android:maxLength="60"
             android:maxLines="1"
             android:singleLine="true" />
 

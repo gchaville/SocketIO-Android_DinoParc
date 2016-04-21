@@ -146,8 +146,9 @@ public class LoginActivity extends Activity {
                 Bundle infos = new Bundle();
                 infos.putString(Constants.EXTRA_NAME, mUsername);
                 infos.putString(Constants.EXTRA_GAMEID, mGameid);
+                //infos.putBoolean(Constants.EXTRA_NEWTURN, false);
 
-                Intent Turnintent = new Intent(LoginActivity.this, TURN_SCREEN.class);
+                Intent Turnintent = new Intent(LoginActivity.this, MainActivity.class);
                 Turnintent.putExtras(infos);
                 startActivity(Turnintent);
             }

@@ -15,24 +15,6 @@
 
             <item android:id="@+id/Booth"
                 android:title="Buy booth" />
-
-            <item android:id="@+id/Restaurant"
-                android:title="Buy Restaurant" />
-
-            <item android:id="@+id/Security"
-                android:title="Buy Security" />
-
-            <item android:id="@+id/Bathroom"
-                android:title="Buy Bathroom" />
-
-            <item android:id="@+id/Casino"
-                android:title="Buy Casino" />
-
-            <item android:id="@+id/Spy"
-                android:title="Buy Spy" />
-
-            <item android:id="@+id/Paleontologist"
-                android:title="Buy Paleontologist" />
         </menu>
     </item>
 

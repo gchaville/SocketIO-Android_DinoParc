@@ -20,7 +20,7 @@ app.use(express.logger('dev'));
 // Serve static html, js, css, and image files from the 'public' directory
 app.use(express.static(path.join(__dirname,'public')));
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 4567;
 
 // Create a Node.js based http server on port 80
 var server = require('http').createServer(app).listen(port, function() {

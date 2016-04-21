@@ -16,6 +16,8 @@ public class Dinos {
 
     Dinos(int col, int row, int draw, Tile t, GridLayout grid, Activity main,int vis, int dim) {
         tuile = t;
+        tuile.col = col;
+        tuile.row = row;
         GridLayout.LayoutParams param = new GridLayout.LayoutParams();
         image = new ImageView(main);
         image.setImageResource(draw);

@@ -337,9 +337,14 @@ html, body {
           BOARD SCREEN
      (intro-screen-template)
    ****************************** */
-#board, #boards table {
+#boards table {
     display: inline-block;
     margin: 10px;
+    position: relative;
+}
+
+.board2, .board3 {
+    float: left;
 }
 
 .tile {
