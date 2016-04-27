@@ -286,7 +286,7 @@ jQuery(function($){
                 App.Host.numPlayersMax = data.numPlayersMax;
                 App.Host.numTurnsMax = data.numTurnsMax;
                 App.Host.hostName = $('#inputHostName').val();
-                console.log(App.Host.numPlayersMax + ' ' + App.Host.numTurnsMax);
+                //console.log(App.Host.numPlayersMax + ' ' + App.Host.numTurnsMax);
                 IO.socket.emit('hostCreateNewGame', data);
             },
 
@@ -356,15 +356,10 @@ jQuery(function($){
 
                 // Prepare the game screen with new HTML
                 App.$gameArea.html(App.$hostGame);
-                App.doTextFit('#hostWord');
-
-                // Begin the on-screen countdown timer
-                var $secondsLeft = $('#hostWord');
-                App.countDown($secondsLeft, 0, function () {
-                    IO.socket.emit('hostCountdownFinished', App.gameId);
-                });
 
                 App.Host.loadBoard(App.Host.numPlayersMax);
+
+                IO.socket.emit('hostCountdownFinished', {turnMax: App.Host.numTurnsMax, gameId: App.gameId});
 
                 // Display the players' names on screen
                 //console.log("Player1 name : " + App.Host.players[0].playerName + " " + App.Host.players[0].mySocketId);
@@ -535,6 +530,9 @@ jQuery(function($){
                 var $pBoard = $('#boards').children('#' + data.playerId);
                 //console.log(data + $pCash + $pVisitors);
 
+                // Update Visitors
+                //console.log("Before Phase" + $pVisitors.text());
+
                 switch (data.action) {
                     // Advance player's score if it is correct
                     case 'playerBuyCage':
@@ -553,12 +551,12 @@ jQuery(function($){
                     } break;
                     case 'playerBuyDino':
                     {
-                        switch (data.dinoType) {
+                        switch (data.type) {
                             case '3':
                             {
                                 // Add 2 visitors and Sub 5 cash to the player's score
                                 $pCash.text(+$pCash.text() - 5);
-                                $pVisitors.text(+$pVisitors.text() + 2);
+                                //$pVisitors.text(+$pVisitors.text() + 2);
 
                                 // Set player board on host and player page
                             } break;
@@ -566,7 +564,7 @@ jQuery(function($){
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 2);
-                                $pVisitors.text(+$pVisitors.text() + 1);
+                                //$pVisitors.text(+$pVisitors.text() + 1);
 
                                 // Set player board on host and player page
                             } break;
@@ -574,7 +572,7 @@ jQuery(function($){
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 10);
-                                $pVisitors.text(+$pVisitors.text() + 5);
+                                //$pVisitors.text(+$pVisitors.text() + 5);
 
                                 // Set player board on host and player page
                             } break;
@@ -582,7 +580,7 @@ jQuery(function($){
                             {
                                 // Add 1 visitor and Sub 2 cash to the player's score
                                 $pCash.text(+$pCash.text() - 20);
-                                $pVisitors.text(+$pVisitors.text() + 10);
+                                //$pVisitors.text(+$pVisitors.text() + 10);
 
                                 // Set player board on host and player page
                             } break;
@@ -608,8 +606,13 @@ jQuery(function($){
                     } break;
 
                 }
-                // Advance the round
 
+                // Income Phase
+                $pVisitors.text(data.visitors);
+                //console.log("Income Phase : " + data.visitors);
+                $pCash.text(+$pCash.text() + ( data.visitors*2));
+
+                // Advance the round
                 App.Host.numPlayersHasPlayed += 1;
 
 
@@ -639,10 +642,10 @@ jQuery(function($){
                     playerName:  App.Host.players[App.Host.numPlayersHasPlayed].playerName
                 }
 
-                console.log('Player ' + data.playerName + 'turn');
+                //console.log('Player ' + data.playerName + 'turn');
                 IO.socket.emit('playerTurn', data);
 
-                console.log(App.Host.numPlayersHasPlayed + ' === ' + App.Host.numPlayersMax);
+                //console.log(App.Host.numPlayersHasPlayed + ' === ' + App.Host.numPlayersMax);
             },
 
             /**
@@ -650,25 +653,54 @@ jQuery(function($){
              * @param data
              */
             endGame : function(data) {
+
+                var $playersScores = [];
+
                 // Get the data for player 1 from the host screen
                 var $p1 = $('#player1Score');
-                var p1Score = +$p1.find('.score').text();
+                var p1Score = +$p1.find('.visitors').text();
                 var p1Name = $p1.find('.playerName').text();
+                $playersScores.push({score: p1Score, name: p1Name});
 
-                // Get the data for player 2 from the host screen
-                var $p2 = $('#player2Score');
-                var p2Score = +$p2.find('.score').text();
-                var p2Name = $p2.find('.playerName').text();
+                if (App.Host.numPlayersMax >= 2) {
+                    // Get the data for player 2 from the host screen
+                    var $p2 = $('#player2Score');
+                    var p2Score = +$p2.find('.visitors').text();
+                    var p2Name = $p2.find('.playerName').text();
+                    $playersScores.push({score: p2Score, name: p2Name});
+                }
+
+                if (App.Host.numPlayersMax >= 3) {
+                    // Get the data for player 3 from the host screen
+                    var $p3 = $('#player3Score');
+                    var p3Score = +$p3.find('.visitors').text();
+                    var p3Name = $p3.find('.playerName').text();
+                    $playersScores.push({score: p3Score, name: p3Name});
+                }
+
+                if (App.Host.numPlayersMax >= 4) {
+                    // Get the data for player 3 from the host screen
+                    var $p4 = $('#player4Score');
+                    var p4Score = +$p4.find('.visitors').text();
+                    var p4Name = $p4.find('.playerName').text();
+                    $playersScores.push({score: p4Score, name: p4Name});
+                }
 
                 // Find the winner based on the scores
-                var winner = (p1Score < p2Score) ? p2Name : p1Name;
-                var tie = (p1Score === p2Score);
+                var winner, tie=false, tampon = 0;
+
+                $.each( $playersScores, function( i, player ) {
+                    if(player.score > tampon) {
+                        winner = player;
+                        tampon = player.score;
+                    }
+                });
 
                 // Display the winner (or tie game message)
                 if(tie){
                     $('#hostWord').text("It's a Tie!");
                 } else {
-                    $('#hostWord').text( winner + ' Wins!!' );
+                    $('#hostWord').text( winner.name + ' Wins!!' );
                 }
                 App.doTextFit('#hostWord');
 
@@ -682,6 +714,8 @@ jQuery(function($){
              */
             restartGame : function() {
                 App.$gameArea.html(App.$templateNewGame);
+                App.currentRound = 0;
+                App.Host.numPlayersHasPlayed =0;
                 $('#spanNewGameCode').text(App.gameId);
             }
         },
@@ -755,6 +789,8 @@ jQuery(function($){
                 }
                 IO.socket.emit('playerRestart',data);
                 App.currentRound = 0;
+                App.Player.cash= 15;
+                App.Player.visitors= 0;
                 $('#gameArea').html("<h3>Waiting on host to start new game.</h3>");
             },
 
@@ -839,8 +875,11 @@ jQuery(function($){
                             playerName : App.Player.myName,
                             action:'playerBuyCage',
                             coordX : $('#inputCoordX').val(),
-                            coordY : $('#inputCoordY').val()
+                            coordY : $('#inputCoordY').val(),
+                            visitors : App.Player.visitors
                         }
+                        App.Player.incomeVisitors();
+                        data.visitors = App.Player.visitors;
                         IO.socket.emit('playerAction',data);
 
                         var xB = parseInt(data.coordX)+1; var yB = parseInt(data.coordY)+1;
@@ -865,15 +904,15 @@ jQuery(function($){
                             action:'playerBuyDino',
                             coordX : $('#inputCoordX').val(),
                             coordY : $('#inputCoordY').val(),
-                            dinoType : $('input[name="dinoType"]:checked').val()
+                            type : $('input[name="dinoType"]:checked').val(),
+                            visitors : App.Player.visitors
                         }
-                        IO.socket.emit('playerAction',data);
 
                         var type;
-                        switch (parseInt(data.dinoType)) {
-                            case 3: type = "Velociraptor"; break;
-                            case 4: type = "Brontosaurus"; break;
-                            case 5: type = "Triceratops"; break;
+                        switch (parseInt(data.type)) {
+                            case 3: type = "Velociraptor";  break;
+                            case 4: type = "Brontosaurus";  break;
+                            case 5: type = "Triceratops";   break;
                             case 2: type = "Tyrannosaurus"; break;
                         }
 
@@ -881,8 +920,13 @@ jQuery(function($){
                         $(tile).attr('class','dino');
                         App.Player.dinos[type].push(tile);
 
+                        App.Player.incomeVisitors();
+                        data.visitors = App.Player.visitors;
+                        IO.socket.emit('playerAction',data);
+
                         $('#gameArea').append($("<h3>Player " + data.playerName + "has bought a " + type + " . He's got " + App.Player.dinos[type].length + "</h3>"));
                         break;
+
                     case 'booth':
                         var data = {
                             gameId : App.gameId,
@@ -891,12 +935,15 @@ jQuery(function($){
                             action:'playerBuyBooth',
                             coordX : $('#inputCoordX').val(),
                             coordY : $('#inputCoordY').val(),
-                            boothType : $('input[name="boothType"]:checked').val()
+                            type : $('input[name="boothType"]:checked').val(),
+                            visitors : App.Player.visitors
                         }
+                        App.Player.incomeVisitors();
+                        data.visitors = App.Player.visitors;
                         IO.socket.emit('playerAction',data);
 
                         var type;
-                        switch(parseInt(data.boothType)) {
+                        switch(parseInt(data.type)) {
                             case 6: type = "Restaurant"; break;
                             case 7: type = "Security"; break;
                             case 8: type = "Bathroom"; break;
@@ -925,8 +972,11 @@ jQuery(function($){
                     gameId: App.gameId,
                     playerId : App.mySocketId,
                     playerName: App.Player.myName,
-                    action:'playerMakeAds'
+                    action:'playerMakeAds',
+                    visitors : App.Player.visitors
                 }
+                App.Player.incomeVisitors();
+                data.visitors = App.Player.visitors;
                 IO.socket.emit('playerAction',data);
 
                 $('#gameArea').append("<h3>Player " + data.playerName + " has made an ad </h3>");
@@ -954,7 +1004,7 @@ jQuery(function($){
             gameCountdown : function(hostData) {
                 App.Player.hostSocketId = hostData.mySocketId;
                 $('#gameArea')
-                    .html('<div class="gameOver">Get Ready!</div>');
+                    .html('<div class="gameOver">Time to play!</div>');
             },
 
             /**
@@ -999,6 +1049,28 @@ jQuery(function($){
 
                 $('#gameArea').append($str);
             },
+
+            incomeVisitors: function() {
+                var dinoVisitors = 2;
+                for(var i=0; i < App.Player.dinos.Velociraptor.length; i++){
+                    App.Player.visitors += dinoVisitors;
+                }
+
+                dinoVisitors = 1;
+                for(var i=0; i < App.Player.dinos.Brontosaurus.length; i++){
+                    App.Player.visitors += dinoVisitors;
+                }
+
+                dinoVisitors = 5;
+                for(var i=0; i < App.Player.dinos.Triceratops.length; i++){
+                    App.Player.visitors += dinoVisitors;
+                }
+
+                dinoVisitors = 10;
+                for(var i=0; i < App.Player.dinos.Tyrannosaurus.length; i++){
+                    App.Player.visitors += dinoVisitors;
+                }
+            },
             /**
              * Show the "Game Over" screen.
              */
@@ -1019,42 +1091,6 @@ jQuery(function($){
         /* **************************
          UTILITY CODE
          ************************** */
-
-        /**
-         * Display the countdown timer on the Host screen
-         *
-         * @param $el The container element for the countdown timer
-         * @param startTime
-         * @param callback The function to call when the timer ends.
-         */
-        countDown : function( $el, startTime, callback) {
-
-            // Display the starting time on the screen.
-            $el.text(startTime);
-            App.doTextFit('#hostWord');
-
-            // console.log('Starting Countdown...');
-
-            // Start a 1 second timer
-            var timer = setInterval(countItDown,1000);
-
-            // Decrement the displayed timer value on each 'tick'
-            function countItDown(){
-                startTime -= 1
-                $el.text(startTime);
-                App.doTextFit('#hostWord');
-
-                if( startTime <= 0 ){
-                    // console.log('Countdown Finished.');
-
-                    // Stop the timer and do the callback.
-                    clearInterval(timer);
-                    callback();
-                    return;
-                }
-            }
-
-        },
 
         /**
          * Make the text inside the given element as big as possible

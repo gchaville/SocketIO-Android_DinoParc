@@ -24,7 +24,7 @@ public class Tile {
         Paleontologist(11);
 
         public int value;
-        private type (final int ty) {value = ty;}
+        type (int ty) {value = ty;}
     }
 
     public type tuileType;

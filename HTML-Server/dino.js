@@ -102,11 +102,8 @@ function hostPrepareGame(gameId) {
  * The Countdown has finished, and the game begins!
  * @param gameId The game ID / room ID
  */
-function hostStartGame(gameId) {
+function hostStartGame(data) {
     console.log('Game Started.');
-    var data = {
-        gameId: gameId
-    };
     io.sockets.in(data.gameId).emit('newBoard', data);
     setTimeout(function(){io.sockets.in(data.gameId).emit('newTurn', data);}, 2000);
     
@@ -115,9 +112,9 @@ function hostStartGame(gameId) {
 function hostCheckAction (data) {
 
     if(data.action === 'playerBuyDino')
-        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]", data.dinoType);
+        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]", data.type);
     else if(data.action === 'playerBuyBooth')
-        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]", data.boothType);
+        console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]", data.type);
     else
         console.log(data.playerName, data.action, "[" + data.coordX + ", " + data.coordY + "]");
 

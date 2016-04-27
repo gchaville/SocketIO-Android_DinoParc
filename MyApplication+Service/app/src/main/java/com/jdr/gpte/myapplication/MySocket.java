@@ -108,7 +108,20 @@ public class MySocket extends Service {
                                 try {
                                     if (data.getString("gameId").equals(mGameid)) {
                                         Log.i(LOG_TAG, "game started");
-                                        notifyPlayer(Constants.GAME_STARTED);
+                                        Intent emitIntent = new Intent();
+                                        emitIntent.setAction(Constants.GAME_STARTED);
+                                        emitIntent.putExtra(Constants.EXTRA_TURNMAX, data.getInt(Constants.EXTRA_TURNMAX));
+                                        sendBroadcast(emitIntent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (event.equals(Constants.GAME_OVER)) {
+                                JSONObject data = (JSONObject) args[0];
+                                try {
+                                    if (data.getString("gameId").equals(mGameid)) {
+                                        Log.i(LOG_TAG, "game over");
+                                        notifyPlayer(Constants.GAME_OVER);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -162,8 +175,10 @@ public class MySocket extends Service {
                     data.put("gameId", intent.getStringExtra("gameId"));
                     data.put("playerName", intent.getStringExtra("playerName"));
                     data.put("action", intent.getStringExtra("action"));
-                    data.put("coordX", intent.getIntExtra("coordX",0));
+                    data.put("coordX", intent.getIntExtra("coordX", 0));
                     data.put("coordY", intent.getIntExtra("coordY",0));
+                    data.put("type", intent.getIntExtra("type",0));
+                    data.put("visitors", intent.getIntExtra("visitors",0));
                     data.put("playerId", mSocket.getSessionId());
                 }
                 catch(JSONException e) {

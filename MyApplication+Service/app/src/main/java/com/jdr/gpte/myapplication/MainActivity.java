@@ -2,9 +2,11 @@ package com.jdr.gpte.myapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         if(intent != null) {
             mUsername = intent.getExtras().getString(Constants.EXTRA_NAME);
             mGameid = intent.getExtras().getString(Constants.EXTRA_GAMEID);
+            turnMax = intent.getExtras().getInt(Constants.EXTRA_TURNMAX);
         }
 
         Intent serviceIntent = new Intent(MainActivity.this, MySocket.class);
@@ -95,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.num_cash)).setText(player.money + "");
         ((TextView)findViewById(R.id.num_visitors)).setText(player.visitors + "");
         ((TextView)findViewById(R.id.TurnMax)).setText(turnMax + " turns");
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.GAME_OVER);
+
+        registerReceiver(mReceiver, filter);
+
         incomePhase();
     }
 
@@ -118,18 +127,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Cage:
                 ((TextView)findViewById(R.id.texte)).setText("Cage");
                 buycage(R.drawable.cage, 1);
+                player.action = Player.playerAction.buyCage;
                 return true;
             case R.id.Ads:
                 ((TextView)findViewById(R.id.texte)).setText("Ads");
                 achat = 0;
                 price = 0;
                 player.money += player.visitors;
-                emitAction(R.id.Ads, new Tile());
-                endTurn();
+                player.action = Player.playerAction.makeAds;
+                //emitAction(R.id.Ads, new Tile());
+                endTurn(new Tile());
                 return true;
             case R.id.Booth:
                 ((TextView)findViewById(R.id.texte)).setText("Booth");
                 buy(R.drawable.booth);
+                player.action = Player.playerAction.buyBooth;
                 return true;
             case R.id.quit:
                 ((TextView)findViewById(R.id.texte)).setText("quit");
@@ -401,6 +413,7 @@ public class MainActivity extends AppCompatActivity {
     public void purchase(){
         final RelativeLayout rel = (RelativeLayout) findViewById(R.id.frame);
         GridLayout grid = (GridLayout) findViewById(R.id.grid);
+        Tile emit = new Tile();
 
         for(int i = achat ; i<arrow.size();i++) {
             grid.removeViewInLayout(arrow.get(i).Button);
@@ -539,8 +552,9 @@ public class MainActivity extends AppCompatActivity {
                     if (nbDino >= 2) {
                         buy = true;
                     }
-                    emitAction(88, dino.tuile);
-                    endTurn();
+                    player.action = Player.playerAction.buyDinos;
+                    //emitAction(88, dino.tuile);
+                    endTurn(dino.tuile);
                 }
 
                 private void clickVelo() {
@@ -573,8 +587,9 @@ public class MainActivity extends AppCompatActivity {
                     if (nbDino >= 4) {
                         buy = true;
                     }
-                    emitAction(88, dino.tuile);
-                    endTurn();
+                    player.action = Player.playerAction.buyDinos;
+                    //emitAction(88, dino.tuile);
+                    endTurn(dino.tuile);
                 }
 
                 private void clickTric() {
@@ -592,8 +607,9 @@ public class MainActivity extends AppCompatActivity {
                     price = 10;
                     nbDino++;
                     buy = true;
-                    emitAction(88, dino.tuile);
-                    endTurn();
+                    player.action = Player.playerAction.buyDinos;
+                    //emitAction(88, dino.tuile);
+                    endTurn(dino.tuile);
                 }
 
                 private void clickTyra() {
@@ -611,20 +627,20 @@ public class MainActivity extends AppCompatActivity {
                     price = 25;
                     nbDino++;
                     buy = true;
-                    emitAction(88, dino.tuile);
-                    endTurn();
+                    player.action = Player.playerAction.buyDinos;
+                    //emitAction(88, dino.tuile);
+                    endTurn(dino.tuile);
                 }
             });
-            emitAction(R.drawable.cage, arrow.get(1).tuile_def);
-        }
-        else
-            emitAction(R.drawable.booth, arrow.get(0).tuile_def);
+            emit = arrow.get(1).tuile_def;
+        } else
+            emit = arrow.get(0).tuile_def;
 
         arrow.clear();
-        endTurn();
+        endTurn(emit);
     }
 
-    void endTurn () {
+    void endTurn (Tile emittedTile) {
         RelativeLayout rel = (RelativeLayout) findViewById(R.id.frame);
         GridLayout grid = (GridLayout) findViewById(R.id.grid);
 
@@ -643,6 +659,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.num_cash)).setText(player.money + "");
         ((TextView)findViewById(R.id.num_visitors)).setText(player.visitors + "");
         turn++;
+        emitAction(emittedTile);
         incomePhase();
     }
 
@@ -651,22 +668,22 @@ public class MainActivity extends AppCompatActivity {
         player.money+= player.visitors*2;
         ((TextView)findViewById(R.id.num_cash)).setText(player.money + "");
         Log.i("Main", "turn " + turn + "/" + turnMax );
-        if (turn >= turnMax) {
+       /* if (turn >= turnMax) {
             Intent intent = new Intent(getApplicationContext(), GameOver.class);
             startActivity(intent);
             finish();
         }
-        else {
+        else {*/
             ((TextView)findViewById(R.id.Turns)).setText(turn + "");
             Bundle infos = new Bundle();
             infos.putString(Constants.EXTRA_NAME, mUsername);
             infos.putString(Constants.EXTRA_GAMEID, mGameid);
-            //infos.putBoolean(Constants.EXTRA_NEWTURN, false);
+            infos.putInt(Constants.EXTRA_TURNMAX, turnMax);
 
             Intent intent = new Intent(this, TURN_SCREEN.class);
             intent.putExtras(infos);
             startActivity(intent);
-        }
+        //}
     }
 
     void dino_button() {
@@ -686,46 +703,56 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void emitAction(int option, Tile tile) {
+    void emitAction(Tile tile) {
 
         // Adjust col and row for the server
         tile.col += 1;
         tile.row += 1;
 
+        //System.out.println ("TileType: " + tile.tuileType.value);
+        //System.out.println(player.visitors);
         Intent emitIntent = new Intent();
         emitIntent.setAction(Constants.PLAYER_ACTION);
 
-        switch(option) {
-            case R.drawable.cage:
+        switch(player.action) {
+            case buyCage:
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
                 emitIntent.putExtra("action", "playerBuyCage");
+                emitIntent.putExtra("type", tile.tuileType.value);
                 emitIntent.putExtra("coordX", tile.row);
                 emitIntent.putExtra("coordY", tile.col);
+                emitIntent.putExtra("visitors", player.visitors);
                 break;
 
-            case R.drawable.booth:
+            case buyBooth:
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
                 emitIntent.putExtra("action", "playerBuyBooth");
-                emitIntent.putExtra("boothType", tile.tuileType.value);
+                emitIntent.putExtra("type", tile.tuileType.value);
                 emitIntent.putExtra("coordX", tile.row);
                 emitIntent.putExtra("coordY", tile.col);
+                emitIntent.putExtra("visitors", player.visitors);
                 break;
 
-            case 88:
+            case buyDinos:
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
                 emitIntent.putExtra("action", "playerBuyDino");
-                emitIntent.putExtra("dinoType", tile.tuileType.value);
+                emitIntent.putExtra("type", tile.tuileType.value);
                 emitIntent.putExtra("coordX", tile.row);
                 emitIntent.putExtra("coordY", tile.col);
+                emitIntent.putExtra("visitors", player.visitors);
                 break;
 
-            case R.id.Ads:
+            case makeAds:
                 emitIntent.putExtra("gameId", mGameid);
                 emitIntent.putExtra("playerName", mUsername);
+                emitIntent.putExtra("type", 0);
+                emitIntent.putExtra("coordX", 0);
+                emitIntent.putExtra("coordY", 0);
                 emitIntent.putExtra("action", "playerMakeAds");
+                emitIntent.putExtra("visitors", player.visitors);
                 break;
         }
         sendBroadcast(emitIntent);
@@ -772,6 +799,7 @@ public class MainActivity extends AppCompatActivity {
             mServiceBound = false;
         }
         stopService(new Intent(this, MySocket.class));
+        unregisterReceiver(mReceiver);
     }
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -785,6 +813,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             mServiceBound = false;
+        }
+    };
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if(intent.getAction().equals(Constants.GAME_OVER)) {
+                Log.i("TurnScreen", "turn is coming 1");
+                Intent finishIntent = new Intent(getApplicationContext(), GameOver.class);
+                startActivity(finishIntent);
+                finish();
+                //isNewTurn = true;
+            }
         }
     };
 }

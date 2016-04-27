@@ -32,6 +32,7 @@ public class TURN_SCREEN extends AppCompatActivity {
 
     private String mUsername;
     private String mGameid;
+    private int turnMax;
 
     private boolean isNewTurn = false;
 
@@ -46,7 +47,7 @@ public class TURN_SCREEN extends AppCompatActivity {
         if(intent != null) {
             mUsername = intent.getExtras().getString(Constants.EXTRA_NAME);
             mGameid = intent.getExtras().getString(Constants.EXTRA_GAMEID);
-            isNewTurn = intent.getExtras().getBoolean(Constants.EXTRA_NEWTURN);
+            turnMax = intent.getExtras().getInt(Constants.EXTRA_TURNMAX);
         }
 
         Intent serviceIntent = new Intent(this, MySocket.class);
@@ -141,6 +142,8 @@ public class TURN_SCREEN extends AppCompatActivity {
                 Bundle infos = new Bundle();
                 infos.putString(Constants.EXTRA_NAME, mUsername);
                 infos.putString(Constants.EXTRA_GAMEID, mGameid);
+                infos.putInt(Constants.EXTRA_TURNMAX, turnMax);
+
 
                 lm.removeView(findViewById(R.id.turn_ready));
                 finish();
@@ -158,7 +161,7 @@ public class TURN_SCREEN extends AppCompatActivity {
         Bundle infos = new Bundle();
         infos.putString(Constants.EXTRA_NAME, mUsername);
         infos.putString(Constants.EXTRA_GAMEID, mGameid);
-        //infos.putBoolean(Constants.EXTRA_NEWTURN, true);
+        infos.putInt(Constants.EXTRA_TURNMAX, turnMax);
 
         Intent intent = new Intent(this, TURN_SCREEN.class);
         intent.setAction(Intent.ACTION_MAIN);

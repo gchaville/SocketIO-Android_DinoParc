@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c244e12-18d8-4ac5-a912-a72c2d607628" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dino.js" afterPath="$PROJECT_DIR$/dino.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/appi.js" afterPath="$PROJECT_DIR$/public/appi.js" />
     </list>
@@ -37,8 +38,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5384617">
-              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="124" column="71" selection-start-line="124" selection-start-column="71" selection-end-line="124" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -47,7 +48,7 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.65384614">
+            <state vertical-scroll-proportion="0.0">
               <caret line="375" column="23" selection-start-line="375" selection-start-column="23" selection-end-line="375" selection-end-column="23" />
               <folding>
                 <marker date="1461008312670" expanded="true" signature="5654:5657" placeholder="{...}" />
@@ -59,8 +60,18 @@
       <file leaf-file-name="appi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/appi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7370184">
-              <caret line="603" column="0" selection-start-line="603" selection-start-column="0" selection-end-line="603" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.92462313">
+              <caret line="533" column="30" selection-start-line="533" selection-start-column="30" selection-end-line="533" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="342" column="20" selection-start-line="342" selection-start-column="20" selection-end-line="342" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -70,9 +81,13 @@
         <entry file="file://$PROJECT_DIR$/dino.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="129" column="29" selection-start-line="129" selection-start-column="29" selection-end-line="129" selection-end-column="29" />
+              <caret line="116" column="97" selection-start-line="116" selection-start-column="97" selection-end-line="116" selection-end-column="97" />
               <folding>
                 <element signature="e#0#48#0" expanded="false" />
+                <marker date="1461726994733" expanded="true" signature="74:255" placeholder="/** This function is called by index.js to initialize a new game instance. ...*/" />
+                <marker date="1461726994733" expanded="true" signature="1152:1233" placeholder="/** The 'START' button was clicked and 'hostCreateNewGame' event occurred. ...*/" />
+                <marker date="1461726994733" expanded="true" signature="1610:1821" placeholder="/** A host join the room as player ...*/" />
+                <marker date="1461726994733" expanded="true" signature="3268:3416" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -146,7 +161,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -217,6 +231,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -339,7 +354,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14642857" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -355,7 +370,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264192" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -408,7 +423,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/appi.js</url>
-          <line>997</line>
+          <line>1047</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
@@ -423,6 +438,10 @@
           <caret line="126" column="56" selection-start-line="126" selection-start-column="56" selection-end-line="126" selection-end-column="56" />
           <folding>
             <element signature="e#0#48#0" expanded="false" />
+            <marker date="1461726994733" expanded="true" signature="74:255" placeholder="/** This function is called by index.js to initialize a new game instance. ...*/" />
+            <marker date="1461726994733" expanded="true" signature="1152:1233" placeholder="/** The 'START' button was clicked and 'hostCreateNewGame' event occurred. ...*/" />
+            <marker date="1461726994733" expanded="true" signature="1610:1821" placeholder="/** A host join the room as player ...*/" />
+            <marker date="1461726994733" expanded="true" signature="3268:3416" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -741,14 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="252" column="81" selection-start-line="252" selection-start-column="81" selection-end-line="252" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../t/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2989011">
@@ -770,6 +781,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="375" column="23" selection-start-line="375" selection-start-column="23" selection-end-line="375" selection-end-column="23" />
+          <folding>
+            <marker date="1461008312670" expanded="true" signature="5654:5657" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -778,38 +799,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dino.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="129" column="29" selection-start-line="129" selection-start-column="29" selection-end-line="129" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#48#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617">
-          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="124" column="71" selection-start-line="124" selection-start-column="71" selection-end-line="124" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/styles.css">
+    <entry file="file://$PROJECT_DIR$/public/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.65384614">
-          <caret line="375" column="23" selection-start-line="375" selection-start-column="23" selection-end-line="375" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="342" column="20" selection-start-line="342" selection-start-column="20" selection-end-line="342" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dino.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="116" column="97" selection-start-line="116" selection-start-column="97" selection-end-line="116" selection-end-column="97" />
           <folding>
-            <marker date="1461008312670" expanded="true" signature="5654:5657" placeholder="{...}" />
+            <element signature="e#0#48#0" expanded="false" />
+            <marker date="1461726994733" expanded="true" signature="74:255" placeholder="/** This function is called by index.js to initialize a new game instance. ...*/" />
+            <marker date="1461726994733" expanded="true" signature="1152:1233" placeholder="/** The 'START' button was clicked and 'hostCreateNewGame' event occurred. ...*/" />
+            <marker date="1461726994733" expanded="true" signature="1610:1821" placeholder="/** A host join the room as player ...*/" />
+            <marker date="1461726994733" expanded="true" signature="3268:3416" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/appi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7370184">
-          <caret line="603" column="0" selection-start-line="603" selection-start-column="0" selection-end-line="603" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.92462313">
+          <caret line="533" column="30" selection-start-line="533" selection-start-column="30" selection-end-line="533" selection-end-column="30" />
           <folding />
         </state>
       </provider>
