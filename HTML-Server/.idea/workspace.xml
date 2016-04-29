@@ -60,8 +60,8 @@
       <file leaf-file-name="appi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/appi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.92462313">
-              <caret line="533" column="30" selection-start-line="533" selection-start-column="30" selection-end-line="533" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.8952703">
+              <caret line="589" column="64" selection-start-line="589" selection-start-column="64" selection-end-line="589" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -84,9 +84,6 @@
               <caret line="116" column="97" selection-start-line="116" selection-start-column="97" selection-end-line="116" selection-end-column="97" />
               <folding>
                 <element signature="e#0#48#0" expanded="false" />
-                <marker date="1461726994733" expanded="true" signature="74:255" placeholder="/** This function is called by index.js to initialize a new game instance. ...*/" />
-                <marker date="1461726994733" expanded="true" signature="1152:1233" placeholder="/** The 'START' button was clicked and 'hostCreateNewGame' event occurred. ...*/" />
-                <marker date="1461726994733" expanded="true" signature="1610:1821" placeholder="/** A host join the room as player ...*/" />
                 <marker date="1461726994733" expanded="true" signature="3268:3416" placeholder="{...}" />
               </folding>
             </state>
@@ -161,6 +158,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -232,7 +230,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -354,24 +351,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14642857" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3176856" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36438355" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3176856" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264192" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36438355" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -438,9 +435,6 @@
           <caret line="126" column="56" selection-start-line="126" selection-start-column="56" selection-end-line="126" selection-end-column="56" />
           <folding>
             <element signature="e#0#48#0" expanded="false" />
-            <marker date="1461726994733" expanded="true" signature="74:255" placeholder="/** This function is called by index.js to initialize a new game instance. ...*/" />
-            <marker date="1461726994733" expanded="true" signature="1152:1233" placeholder="/** The 'START' button was clicked and 'hostCreateNewGame' event occurred. ...*/" />
-            <marker date="1461726994733" expanded="true" signature="1610:1821" placeholder="/** A host join the room as player ...*/" />
             <marker date="1461726994733" expanded="true" signature="3268:3416" placeholder="{...}" />
           </folding>
         </state>
@@ -821,9 +815,6 @@
           <caret line="116" column="97" selection-start-line="116" selection-start-column="97" selection-end-line="116" selection-end-column="97" />
           <folding>
             <element signature="e#0#48#0" expanded="false" />
-            <marker date="1461726994733" expanded="true" signature="74:255" placeholder="/** This function is called by index.js to initialize a new game instance. ...*/" />
-            <marker date="1461726994733" expanded="true" signature="1152:1233" placeholder="/** The 'START' button was clicked and 'hostCreateNewGame' event occurred. ...*/" />
-            <marker date="1461726994733" expanded="true" signature="1610:1821" placeholder="/** A host join the room as player ...*/" />
             <marker date="1461726994733" expanded="true" signature="3268:3416" placeholder="{...}" />
           </folding>
         </state>
@@ -831,8 +822,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/appi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.92462313">
-          <caret line="533" column="30" selection-start-line="533" selection-start-column="30" selection-end-line="533" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.8952703">
+          <caret line="589" column="64" selection-start-line="589" selection-start-column="64" selection-end-line="589" selection-end-column="64" />
           <folding />
         </state>
       </provider>

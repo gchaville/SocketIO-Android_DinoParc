@@ -177,7 +177,7 @@ public class MySocket extends Service {
                     data.put("action", intent.getStringExtra("action"));
                     data.put("coordX", intent.getIntExtra("coordX", 0));
                     data.put("coordY", intent.getIntExtra("coordY",0));
-                    data.put("type", intent.getIntExtra("type",0));
+                    data.put("type", intent.getIntExtra("type", 0));
                     data.put("visitors", intent.getIntExtra("visitors",0));
                     data.put("playerId", mSocket.getSessionId());
                 }
